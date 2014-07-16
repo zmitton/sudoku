@@ -55,6 +55,9 @@
 			this.appendChild(input_field);
 
 		});
+		if (document.getElementById("solution_string")){
+			fill_board_with_solution();
+		}
 
 	}
 
@@ -115,12 +118,61 @@
 			this.tri_square_arr.push(square_arr);
 		}
 	}
+
+
+	// function go(){
+	// 	alert("not here");
+
+	// 	$.ajax({
+	// 		url: '/solve',
+	// 		method: 'get',
+	// 		data: {string: "hellloooo wooorllldd"},
+	// 		dataType: 'html',
+	// 		success: mySuccessFunction
+	// 	});
+	// }
+
+	function go(){
+		var url = "/"
+		//var string = "105802000090076405200400819019007306762083090000061050007600030430020501600308900";
+		var string = make_string();
+		window.location.href = url + string;
+	}
+
+	function make_string(){
+		user_string = ""
+		for(i=1 ; i <= 81 ; i++){
+			cell_value = document.getElementById(i).childNodes[0].value
+			if(cell_value == "")
+				cell_value = "0";
+			user_string += cell_value;
+		}
+		console.log(user_string);
+		return user_string;
+	}
+
+
+	function fill_board_with_solution(){
+		for(i=1 ; i <= 81 ; i++){
+			cell = document.getElementById(i).childNodes[0]
+			cell.value = document.getElementById("solution_string").innerHTML.charAt(i-1);
+			console.log(document.getElementById("solution_string").innerHTML.charAt(i-1));
+		}		
+	}
+
+
 </script>
 
 
 </head>
 <body>
+	<% if @string %>
+		<div id="solution_string" style="visibility:hidden"><%=@solution_string%></div>
+		
+	<%end%>
+
 	<h2>This Webpage is designed to do one thing: Solve Sudoku puzzles!</h2>
+	<h3>Type in the numbers you know and hit Submit </h3>
 	
 	<div id="board_div">
 		<table border="1" style="width:300px">
@@ -225,9 +277,13 @@
 			</tr>
 		</table>
 	</div>
+	<div id="submit_button">
+		<button type="button"  onclick="go();">Submit!</button>
+	</div>
 
-	<input id="cell1" type="text" >
-	<input id="cell2" type="text" >
+
+	<!-- <input id="cell1" type="text" >
+	<input id="cell2" type="text" > -->
 
 
 </body>
