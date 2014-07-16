@@ -19,7 +19,13 @@ get '/:string' do
 	erb :sudoku
 end
 
-
+get '/' do
+	if params[:string]
+		@string = params[:string]
+		@solution_string =  get_solution_string(params[:string])
+	end
+	erb :sudoku
+end
 
 
 
