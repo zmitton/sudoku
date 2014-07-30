@@ -1,9 +1,4 @@
-/* PLAN
-	2
-	each cell on ui is a field mapped via its id to a cell in the global board object.
-	whenever a filed is updated the board resets (re-maps entirely) and undergoes the solver.
 
-*/
 	var board = "g";
 
 	window.onload= function(){
