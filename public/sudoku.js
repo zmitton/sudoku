@@ -84,7 +84,7 @@
 
 
 	function go(){
-		var url = "/sudoku/"
+		var url = "/"
 		var string = make_string();
 		window.location.href = url + string;
 	}
