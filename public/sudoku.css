@@ -1,0 +1,27 @@
+body{
+	max-width: 1200px;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 0px 2px 2px px;
+	background-color: #FFF;
+	font-size: 1.3em
+}
+
+ol li{
+	list-style: none;
+	display: inline;
+	white-space: nowrap;
+	margin-right: 10px;
+}
+
+.table_cell input{
+/*	padding: 50px;
+*/	font-size: 40px;
+}
+
+
+
+/*big screens override above css*/
+@media only screen and (min-width: 40em) {
+
+}

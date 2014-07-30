@@ -8,7 +8,7 @@ get '/api/solve_string/:string' do
 	 if params[:string]
 		@string =  get_solution_string(params[:string])
 	 end
-	    params[:string]
+	    @string
 end
 
 get '/:string' do
@@ -28,19 +28,3 @@ get '/' do
 end
 
 
-
-
-# game_boards = File.readlines('sample.unsolved.txt').map{|line|
-#  line.chomp
-# }
-
-
-
-# game_boards.each{|x|
-# board = Sudoku.new(x)
-# #board.print_board
-# solved_board = board.solve!
-# board.print_board
-# #puts board.full_board.inspect
-
-# }
