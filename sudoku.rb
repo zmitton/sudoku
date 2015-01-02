@@ -306,8 +306,12 @@ end
 
 
 
-
-
+# drive program
+input_string = File.readlines('sample.unsolved.txt')[rand(14)].chomp
+board = Sudoku.new(input_string)
+solved_board = board.solve!
+board.print_board
+board.stringify
 
 
 
