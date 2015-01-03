@@ -41,6 +41,7 @@ class Sudoku
   def initialize(board_string)
     board_string = board_string.chars
     @full_board = (0..2).map do |tri_square_index|
+      #FIXME: seems non-ruby to use indices iteration, instead of enumerating values...? why mapping if just using the values?
       (0..2).map do |square_index|
         (0..2).map do |tri_cell_index|
           (0..2).map do |cell_index|
@@ -227,11 +228,10 @@ class Sudoku
 
 
   def guessing_method
-    #puts "hello"
 
     smallest_num_of_possibilities = 9
     loop_board do |cell|
-      smallest_num_of_possibilities = cell.possibilities.length if cell.possibilities.length < smallest_num_of_possibilities && cell.content == " "
+      smallest_num_of_possibilities = cell.possibilities.length if cell.possibilities.length < smallest_num_of_possibilities && cell.content.is_a?(Array)
       #puts "#{smallest_num_of_possibilities} , #{cell.inspect}"
     end
 
@@ -311,7 +311,7 @@ end
 # drive program from commandline for development
 #####################################################
 
-input_string = File.readlines('sample.unsolved.txt')[rand(14)].chomp
+input_string = File.readlines('sample.unsolved.txt')[13].chomp
 board = Sudoku.new(input_string)
 solved_board = board.solve!
 board.print_board
