@@ -6,9 +6,9 @@ require_relative 'sudoku'
 get '/api/solve_string/:string' do
  content_type :json
 	 if params[:string]
-		@string =  get_solution_string(params[:string])
+		@string = Game.new(params[:string])
 	 end
-	    @string
+ # @string
 end
 
 get '/:string' do

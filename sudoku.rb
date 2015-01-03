@@ -1,16 +1,51 @@
 #require 'pry'
 #require 'pry-nav'
 
+
+module SudokuUtilities
+  def validate_input(cell_input)
+    [*1..9].include?(cell_input.to_i) ? cell_input.to_i : [*1..9]
+  end
+
+  def print_board
+    i = 0
+    a = 1
+    loop_board do |cell|
+      if i % 9 == 0
+        print "\n  ------------------------------------------------------| \n  |  #{cell.content}  |"
+      elsif a % 3 == 0
+        print "  #{cell.content}  |"
+      else
+        print "  #{cell.content}  |"
+      end
+      i+=1
+      a+=1
+    end
+    print "\n  ------------------------------------------------------"
+  end
+
+
+  def stringify
+    output_string = ""
+    loop_board do |cell|
+      output_string += "#{cell.content}"
+    end
+    output_string
+  end
+end
+
 class Sudoku
+  include SudokuUtilities
   attr_accessor :full_board
+
   def initialize(board_string)
-    @board_string = board_string.to_s.split("")
-    @full_board = (0..2).map do |tri_square|
-      (0..2).map do |square|
-        (0..2).map do |tri_cell|
-          (0..2).map do |cell|
-            digit = @board_string[tri_square*27 + square*3 + tri_cell*9 +cell]
-            Cell.new(digit, tri_square, square, tri_cell, cell)
+    board_string = board_string.chars
+    @full_board = (0..2).map do |tri_square_index|
+      (0..2).map do |square_index|
+        (0..2).map do |tri_cell_index|
+          (0..2).map do |cell_index|
+            input = board_string[(tri_square_index * 27) + (square_index * 3) + (tri_cell_index * 9) + cell_index]
+            Cell.new(input, tri_square_index, square_index, tri_cell_index, cell_index)
           end
         end
       end
@@ -68,9 +103,11 @@ class Sudoku
   end
 
   def has_mistakes?
+
     mistakes = false
     loop_board do |cell|
-      mistakes = true if cell.solution == " " && cell.possibilities == []
+      # mistakes = true if cell.content == " " && cell.possibilities == []
+      mistakes = true if cell.content.is_a?(Array) && cell.possibilities == []
     end
     #puts "has mistakes: #{mistakes}"
 
@@ -80,9 +117,9 @@ class Sudoku
 
   def finished?
     finished = true
-    loop_board{|cell|
-      finished = false if cell.solution == " "
-    }
+    loop_board do |cell|
+      finished = false if cell.content.is_a?(Array)
+    end
     finished
   end
 
@@ -94,19 +131,19 @@ class Sudoku
         to_delete=[]
         cell.possibilities.each do |possibility|
           loop_row(cell.tri_square_index, cell.tri_cell_index) do |row_cell|
-            if row_cell.solution == possibility
+            if row_cell.content == possibility
               to_delete << possibility
               something_changed = true
             end
           end
           loop_column(cell.square_index, cell.cell_index) do |column_cell|
-            if column_cell.solution == possibility
+            if column_cell.content == possibility
               to_delete << possibility
               something_changed = true
             end
           end
           loop_square(cell.tri_square_index, cell.square_index) do |square_cell|
-            if square_cell.solution == possibility
+            if square_cell.content == possibility
               to_delete << possibility
               something_changed = true
             end
@@ -114,7 +151,7 @@ class Sudoku
         end
         to_delete.each { |non_possibility| cell.possibilities.delete(non_possibility) }
         if cell.possibilities.length == 1
-          cell.solution = cell.possibilities[0]
+          cell.content = cell.possibilities[0]
           cell.possibilities = []
         end
       end
@@ -142,7 +179,7 @@ class Sudoku
           end
         end
         if elimination_method_valid
-          cell.solution = possibility
+          cell.content = possibility
           cell.possibilities = [possibility]
           something_changed = true
         end
@@ -155,7 +192,7 @@ class Sudoku
           end
         end
         if elimination_method_valid
-          cell.solution = possibility
+          cell.content = possibility
           cell.possibilities = [possibility]
           something_changed = true
         end
@@ -168,7 +205,7 @@ class Sudoku
           end
         end
         if elimination_method_valid
-          cell.solution = possibility
+          cell.content = possibility
           cell.possibilities = [possibility]
           something_changed = true
         end
@@ -194,7 +231,7 @@ class Sudoku
 
     smallest_num_of_possibilities = 9
     loop_board do |cell|
-      smallest_num_of_possibilities = cell.possibilities.length if cell.possibilities.length < smallest_num_of_possibilities && cell.solution == " "
+      smallest_num_of_possibilities = cell.possibilities.length if cell.possibilities.length < smallest_num_of_possibilities && cell.content == " "
       #puts "#{smallest_num_of_possibilities} , #{cell.inspect}"
     end
 
@@ -203,7 +240,7 @@ class Sudoku
         cell.possibilities.each_with_index do |guess_value, guess_index|
 
           guessing_board_copy = Marshal.load(Marshal.dump(self))
-          guessing_board_copy.full_board[cell.tri_square_index][cell.square_index][cell.tri_cell_index][cell.cell_index].solution = guess_value
+          guessing_board_copy.full_board[cell.tri_square_index][cell.square_index][cell.tri_cell_index][cell.cell_index].content = guess_value
           guessing_board_copy.full_board[cell.tri_square_index][cell.square_index][cell.tri_cell_index][cell.cell_index].possibilities = []
           #puts "here5 #{guessing_board_copy.full_board[cell.tri_square_index][cell.square_index][cell.tri_cell_index][cell.cell_index].inspect}"
 
@@ -232,66 +269,48 @@ class Sudoku
     #only make one guess and then continue the normal way (and guess on one where the possibilities are only 2)
     #find a way to save state before the guess.
   end
-
-  def print_board
-    i = 0
-    a = 1
-    loop_board do |cell|
-      if i % 9 == 0
-        print "\n  ------------------------------------------------------| \n  |  #{cell.solution}  |"
-      elsif a % 3 == 0
-        print "  #{cell.solution}  |"
-      else
-        print "  #{cell.solution}  |"
-      end
-      i+=1
-      a+=1
-    end
-    print "\n  ------------------------------------------------------"
-  end
-
-
-  def stringify
-    output_string = ""
-    loop_board do |cell|
-      output_string += "#{cell.solution}"
-    end
-    output_string
-  end
-
 end
-
 
 
 class Cell
-  attr_accessor :solution, :possibilities
+  attr_accessor :content, :possibilities
   attr_reader :tri_square_index, :tri_cell_index, :square_index, :cell_index
-  def initialize(string, tri_square, square, tri_cell, cell)
+  include SudokuUtilities
 
-    @possibilities = ["1","9","3","4","5","6","7","8","2"]
-    @tri_square_index = tri_square
-    @tri_cell_index = tri_cell
-    @square_index = square
-    @cell_index = cell
-
-    if string.to_i == 0
-      @solution = " "
-    else
-      @solution = string
-      @possibilities = [string]
-    end
+  def initialize(input, tri_square_index, square_index, tri_cell_index, cell_index)
+    @content = validate_input(input) #with ruby we should duck type...but if we want to validate input, we can....I made a module as an idea
+    @possibilities = [@content].flatten #so hacky...can't think of anything off the top fo my head but will change anyway with further refactors so not worrying about it now
+    @tri_square_index = tri_square_index
+    @tri_cell_index = tri_cell_index
+    @square_index = square_index
+    @cell_index = cell_index
   end
+
   def solved?
-    if @possibilities.length <= 1
-      @solution = @possibilities
-    end
+    @possibilities.length <= 1
   end
+
 end
 
 
 
+class Game
+  def initialize(input_string)
+    @board = Sudoku.new(input_string)
+  end
 
-# drive program
+  def play_sudoku
+    solved_board = board.solve! #TODO: figure out why is this here/not used
+    @board.print_board
+    @board.stringify
+  end
+end
+
+
+#####################################################
+# drive program from commandline for development
+#####################################################
+
 input_string = File.readlines('sample.unsolved.txt')[rand(14)].chomp
 board = Sudoku.new(input_string)
 solved_board = board.solve!
