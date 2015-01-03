@@ -104,24 +104,16 @@ class Sudoku
   end
 
   def has_mistakes?
-
-    mistakes = false
     loop_board do |cell|
-      # mistakes = true if cell.content == " " && cell.possibilities == []
-      mistakes = true if cell.content.is_a?(Array) && cell.possibilities == []
+      return false unless cell.content.is_a?(Array) && cell.possibilities == []
     end
-    #puts "has mistakes: #{mistakes}"
-
-    mistakes
   end
 
 
   def finished?
-    finished = true
     loop_board do |cell|
-      finished = false if cell.content.is_a?(Array)
+      return false if cell.content.is_a?(Array)
     end
-    finished
   end
 
 
