@@ -141,51 +141,35 @@ class Sudoku
     something_changed = false
     loop_board do |cell|
       cell.possibilities.each do |possibility|
-
         elimination_method_valid = true
-        loop_row(cell.tri_square_index, cell.tri_cell_index) do |row_cell|
-          unless row_cell === cell
-            if row_cell.possibilities.include? possibility
+
+        validate_elimination_method = lambda do |c|
+          unless c === cell
+            if c.possibilities.include? possibility
               elimination_method_valid = false
             end
           end
         end
 
-        if elimination_method_valid
-          cell.content = possibility
-          cell.possibilities = [possibility]
-          something_changed = true
-        end
-
-        elimination_method_valid = true
-        loop_column(cell.square_index, cell.cell_index) do |row_cell|
-          unless row_cell === cell
-            if row_cell.possibilities.include? possibility
-              elimination_method_valid = false
-            end
+        detect_change = lambda do
+          if elimination_method_valid
+            cell.content = possibility
+            cell.possibilities = [possibility]
+            something_changed = true
           end
         end
 
-        if elimination_method_valid
-          cell.content = possibility
-          cell.possibilities = [possibility]
-          something_changed = true
-        end
+        elimination_method_valid = true
+        loop_row(cell.tri_square_index, cell.tri_cell_index) { |row_cell| validate_elimination_method.call(row_cell) }
+        detect_change.call
 
         elimination_method_valid = true
-        loop_square(cell.tri_square_index, cell.square_index) do |row_cell|
-          unless row_cell === cell
-            if row_cell.possibilities.include? possibility
-              elimination_method_valid = false
-            end
-          end
-        end
+        loop_column(cell.square_index, cell.cell_index) { |row_cell| validate_elimination_method.call(row_cell) }
+        detect_change.call
 
-        if elimination_method_valid
-          cell.content = possibility
-          cell.possibilities = [possibility]
-          something_changed = true
-        end
+        elimination_method_valid = true
+        loop_square(cell.tri_square_index, cell.square_index) {|row_cell| validate_elimination_method.call(row_cell)}
+        detect_change.call
 
       end
     end
