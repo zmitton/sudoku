@@ -66,7 +66,7 @@ class Sudoku
         return guessing_method
       end
     end
-    return self
+    self
   end
 
   def has_mistakes?
@@ -151,7 +151,7 @@ class Sudoku
         end
       end
     end while something_changed
-    return something_changed
+    something_changed
   end
 
 
@@ -207,13 +207,13 @@ class Sudoku
 
       end
     end
-    return something_changed
+    something_changed
   end
 
 
   def guessing_method
     smallest_num_of_possibilities = 9
-    
+
     loop_board do |cell|
       smallest_num_of_possibilities = cell.possibilities.length if cell.possibilities.length < smallest_num_of_possibilities && cell.content.is_a?(Array)
     end
