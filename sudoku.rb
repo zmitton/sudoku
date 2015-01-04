@@ -1,4 +1,3 @@
-
 module SudokuUtilities
   def validate_input(cell_input)
     [*1..9].include?(cell_input.to_i) ? cell_input.to_i : [*1..9]
@@ -20,7 +19,6 @@ module SudokuUtilities
     end
     print "\n  ------------------------------------------------------"
   end
-
 
   def stringify
     output_string = ""
@@ -67,13 +65,11 @@ class Sudoku
     end
   end
 
-
   def finished?
     loop_board do |cell|
       return false if cell.content.is_a?(Array)
     end
   end
-
 
   def loop_square(tri_square, square)
     (0..2).each do |tri_cell|
@@ -107,7 +103,6 @@ class Sudoku
     end
   end
 
-
   def standard_method
     begin
       something_changed = false
@@ -132,7 +127,6 @@ class Sudoku
     end while something_changed
     something_changed
   end
-
 
   def elimination_method
     something_changed = false
@@ -173,7 +167,8 @@ class Sudoku
     something_changed
   end
 
-
+  #only make one guess and then continue the normal way (and guess on one where the possibilities are only 2)
+  #find a way to save state before the guess.
   def guessing_method
     smallest_num_of_possibilities = 9
 
@@ -188,19 +183,17 @@ class Sudoku
           guessing_board_copy = Marshal.load(Marshal.dump(self))
           guessing_board_copy.full_board[cell.tri_square_index][cell.square_index][cell.tri_cell_index][cell.cell_index].content = guess_value
           guessing_board_copy.full_board[cell.tri_square_index][cell.square_index][cell.tri_cell_index][cell.cell_index].possibilities = []
+
           if guessing_board_copy.solve!
             self.full_board = guessing_board_copy.full_board
             return guessing_board_copy
           end
-
         end
         return false
       end
     end
   end
 end
-#only make one guess and then continue the normal way (and guess on one where the possibilities are only 2)
-#find a way to save state before the guess.
 
 
 class Cell
@@ -220,9 +213,7 @@ class Cell
   def solved?
     @possibilities.length <= 1
   end
-
 end
-
 
 
 class Game
