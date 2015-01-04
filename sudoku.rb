@@ -41,7 +41,6 @@ class Sudoku
   def initialize(board_string)
     board_string = board_string.chars
     @full_board = (0..2).map do |tri_square_index|
-      #FIXME: seems non-ruby to use indices iteration, instead of enumerating values...? why mapping if just using the values?
       (0..2).map do |square_index|
         (0..2).map do |tri_cell_index|
           (0..2).map do |cell_index|
@@ -52,6 +51,37 @@ class Sudoku
       end
     end
   end
+
+  def solve!
+    until finished?
+      begin
+        something_changed = false
+        something_changed = standard_method || elimination_method
+      end while something_changed
+
+
+      if has_mistakes?
+        return false
+      elsif !finished?
+        return guessing_method
+      end
+    end
+    return self
+  end
+
+  def has_mistakes?
+    loop_board do |cell|
+      return false unless cell.content.is_a?(Array) && cell.possibilities == []
+    end
+  end
+
+
+  def finished?
+    loop_board do |cell|
+      return false if cell.content.is_a?(Array)
+    end
+  end
+
 
   def loop_square(tri_square, square)
     (0..2).each do |tri_cell|
@@ -85,56 +115,27 @@ class Sudoku
     end
   end
 
-  def solve!
-
-    until finished?
-      begin
-        something_changed = false
-        something_changed = standard_method || elimination_method
-      end while something_changed
-
-
-      if has_mistakes?
-        return false
-      elsif !finished?
-        return guessing_method
-      end
-    end
-    return self
-  end
-
-  def has_mistakes?
-    loop_board do |cell|
-      return false unless cell.content.is_a?(Array) && cell.possibilities == []
-    end
-  end
-
-
-  def finished?
-    loop_board do |cell|
-      return false if cell.content.is_a?(Array)
-    end
-  end
-
 
   def standard_method
     begin
       something_changed = false
       loop_board do |cell|
-        to_delete=[]
-        cell.possibilities.each do |possibility|
+        deletions = cell.possibilities.each_with_object([]) do |possibility, to_delete|
+
           loop_row(cell.tri_square_index, cell.tri_cell_index) do |row_cell|
             if row_cell.content == possibility
               to_delete << possibility
               something_changed = true
             end
           end
+
           loop_column(cell.square_index, cell.cell_index) do |column_cell|
             if column_cell.content == possibility
               to_delete << possibility
               something_changed = true
             end
           end
+
           loop_square(cell.tri_square_index, cell.square_index) do |square_cell|
             if square_cell.content == possibility
               to_delete << possibility
@@ -142,7 +143,8 @@ class Sudoku
             end
           end
         end
-        to_delete.each { |non_possibility| cell.possibilities.delete(non_possibility) }
+
+        deletions.each { |non_possibility| cell.possibilities.delete(non_possibility) }
         if cell.possibilities.length == 1
           cell.content = cell.possibilities[0]
           cell.possibilities = []
@@ -154,16 +156,11 @@ class Sudoku
 
 
   def elimination_method
-
     something_changed = false
     loop_board do |cell|
       cell.possibilities.each do |possibility|
 
-
         elimination_method_valid = true
-
-
-
         loop_row(cell.tri_square_index, cell.tri_cell_index) do |row_cell|
           unless row_cell === cell
             if row_cell.possibilities.include? possibility
@@ -171,11 +168,13 @@ class Sudoku
             end
           end
         end
+
         if elimination_method_valid
           cell.content = possibility
           cell.possibilities = [possibility]
           something_changed = true
         end
+
         elimination_method_valid = true
         loop_column(cell.square_index, cell.cell_index) do |row_cell|
           unless row_cell === cell
@@ -184,11 +183,13 @@ class Sudoku
             end
           end
         end
+
         if elimination_method_valid
           cell.content = possibility
           cell.possibilities = [possibility]
           something_changed = true
         end
+
         elimination_method_valid = true
         loop_square(cell.tri_square_index, cell.square_index) do |row_cell|
           unless row_cell === cell
@@ -197,6 +198,7 @@ class Sudoku
             end
           end
         end
+
         if elimination_method_valid
           cell.content = possibility
           cell.possibilities = [possibility]
@@ -204,64 +206,38 @@ class Sudoku
         end
 
       end
-
-
-      # cell.solution = cell.possibilities[0] if cell.possibilities.length == 1
     end
-
-
-
-    #end while something_changed
     return something_changed
   end
 
 
-
-
-
   def guessing_method
-
     smallest_num_of_possibilities = 9
+    
     loop_board do |cell|
       smallest_num_of_possibilities = cell.possibilities.length if cell.possibilities.length < smallest_num_of_possibilities && cell.content.is_a?(Array)
-      #puts "#{smallest_num_of_possibilities} , #{cell.inspect}"
     end
 
     loop_board do |cell|
       if cell.possibilities.length == smallest_num_of_possibilities
-        cell.possibilities.each_with_index do |guess_value, guess_index|
+        cell.possibilities.each do |guess_value|
 
           guessing_board_copy = Marshal.load(Marshal.dump(self))
           guessing_board_copy.full_board[cell.tri_square_index][cell.square_index][cell.tri_cell_index][cell.cell_index].content = guess_value
           guessing_board_copy.full_board[cell.tri_square_index][cell.square_index][cell.tri_cell_index][cell.cell_index].possibilities = []
-          #puts "here5 #{guessing_board_copy.full_board[cell.tri_square_index][cell.square_index][cell.tri_cell_index][cell.cell_index].inspect}"
-
           if guessing_board_copy.solve!
-
-            # puts guessing_board_copy.print_board
             self.full_board = guessing_board_copy.full_board
             return guessing_board_copy
           end
 
         end
-
-
-        # if !guessing_board_copy.solve!
-        #   puts guessing_board_copy.print_board
-        #   break
-        # else
-        #   puts guessing_board_copy.print_board
-        # end
-        return false #guessing_board_copy.solve!
-
-        # return guessing_board_copy if !has_mistakes?
+        return false
       end
     end
-
-    #only make one guess and then continue the normal way (and guess on one where the possibilities are only 2)
-    #find a way to save state before the guess.
   end
 end
+#only make one guess and then continue the normal way (and guess on one where the possibilities are only 2)
+#find a way to save state before the guess.
 
 
 class Cell
@@ -270,8 +246,8 @@ class Cell
   include SudokuUtilities
 
   def initialize(input, tri_square_index, square_index, tri_cell_index, cell_index)
-    @content = validate_input(input) #with ruby we should duck type...but if we want to validate input, we can....I made a module as an idea
-    @possibilities = [@content].flatten #so hacky...can't think of anything off the top fo my head but will change anyway with further refactors so not worrying about it now
+    @content = validate_input(input)
+    @possibilities = [@content].flatten
     @tri_square_index = tri_square_index
     @tri_cell_index = tri_cell_index
     @square_index = square_index
@@ -292,7 +268,7 @@ class Game
   end
 
   def play_sudoku
-    solved_board = board.solve! #TODO: figure out why is this here/not used
+    @board.solve!
     @board.print_board
     @board.stringify
   end
@@ -305,6 +281,6 @@ end
 
 input_string = File.readlines('sample.unsolved.txt')[13].chomp
 board = Sudoku.new(input_string)
-solved_board = board.solve!
+board.solve!
 board.print_board
 board.stringify
