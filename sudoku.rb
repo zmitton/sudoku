@@ -1,6 +1,3 @@
-#require 'pry'
-#require 'pry-nav'
-
 
 module SudokuUtilities
   def validate_input(cell_input)
@@ -245,7 +242,7 @@ end
 # drive program from commandline for development
 #####################################################
 
-input_string = File.readlines('sample.unsolved.txt')[13].chomp
+input_string = File.readlines('sample.unsolved.txt')[14].chomp
 board = Sudoku.new(input_string)
 board.solve!
 board.print_board
