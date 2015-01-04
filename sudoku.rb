@@ -59,12 +59,7 @@ class Sudoku
         something_changed = standard_method || elimination_method
       end while something_changed
 
-
-      if has_mistakes?
-        return false
-      elsif !finished?
-        return guessing_method
-      end
+      return has_mistakes? ?  false :  guessing_method
     end
     self
   end
@@ -121,34 +116,21 @@ class Sudoku
       something_changed = false
       loop_board do |cell|
         deletions = cell.possibilities.each_with_object([]) do |possibility, to_delete|
-
-          loop_row(cell.tri_square_index, cell.tri_cell_index) do |row_cell|
-            if row_cell.content == possibility
+          
+          check_for_deletions = lambda do |c|
+            if c.content == possibility
               to_delete << possibility
               something_changed = true
             end
           end
 
-          loop_column(cell.square_index, cell.cell_index) do |column_cell|
-            if column_cell.content == possibility
-              to_delete << possibility
-              something_changed = true
-            end
-          end
-
-          loop_square(cell.tri_square_index, cell.square_index) do |square_cell|
-            if square_cell.content == possibility
-              to_delete << possibility
-              something_changed = true
-            end
-          end
+          loop_row(cell.tri_square_index, cell.tri_cell_index) { |row_cell|  check_for_deletions.call(row_cell) }
+          loop_column(cell.square_index, cell.cell_index) { |column_cell| check_for_deletions.call(column_cell) }
+          loop_square(cell.tri_square_index, cell.square_index) { |square_cell| check_for_deletions.call(square_cell) }
         end
 
-        deletions.each { |non_possibility| cell.possibilities.delete(non_possibility) }
-        if cell.possibilities.length == 1
-          cell.content = cell.possibilities[0]
-          cell.possibilities = []
-        end
+        cell.possibilities -= deletions
+        cell.content = cell.possibilities.pop if cell.possibilities.length == 1
       end
     end while something_changed
     something_changed
