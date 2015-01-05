@@ -24,31 +24,31 @@ function colorCell(cell) {
     var input = cell.value
     switch (input) {
         case "1":
-            $(cell).css("background-color", "blue");
+            $(cell).css("background-color", "#62cec7");
             break;
         case "2":
-            $(cell).css("background-color", "pink");
+            $(cell).css("background-color", "#83c6e2");
             break;
         case "3":
-            $(cell).css("background-color", "yellow");
+            $(cell).css("background-color", "#2fc8d3");
             break;
         case "4":
-            $(cell).css("background-color", "red");
+            $(cell).css("background-color", "#588eaf");
             break;
         case "5":
-            $(cell).css("background-color", "orange");
+            $(cell).css("background-color", "#4b9eb1");
             break;
         case "6":
-            $(cell).css("background-color", "purple");
+            $(cell).css("background-color", "#309fce");
             break;
         case "7":
-            $(cell).css("background-color", "green");
+            $(cell).css("background-color", "#a3e6e3");
             break;
         case "8":
-            $(cell).css("background-color", "black");
+            $(cell).css("background-color", "#8cb1c8");
             break;
         case "9":
-            $(cell).css("background-color", "teal");
+            $(cell).css("background-color", "#2996e8");
             break;
         default:
             $(cell).css("background-color", "white");
