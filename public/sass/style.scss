@@ -4,6 +4,16 @@
 @import "neat/neat";
 @import "bitters/bitters";
 
+td {
+  border: 0;
+  padding: 0;
+}
+
+input {
+  height: 33px;
+  margin-bottom: 0 !important;
+}
+
 // body {
 //   max-width: 1200px;
 //   margin-left: auto;
