@@ -1,8 +1,8 @@
 # Require any additional compass plugins here.
 # require 'susy'
-# require 'bourbon-compass'
-# require 'neat-compass'
-require 'bitters-compass'
+require 'bourbon-compass'
+require 'neat-compass'
+
 
 # Set this to the root of your project when deployed:
 http_path = "/"
