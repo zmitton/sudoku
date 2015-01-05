@@ -35,7 +35,6 @@ get '/api/solve_string/:string' do
 	 if params[:string]
 		@string = Game.new(params[:string])
 	 end
- # @string
 end
 
 get '/:string' do
@@ -43,7 +42,7 @@ get '/:string' do
 		@string = params[:string]
 		@solution_string =  get_solution_string(params[:string])
 	end
-	erb :sudoku
+	haml :sudoku
 end
 
 get '/' do
@@ -51,7 +50,7 @@ get '/' do
 		@string = params[:string]
 		@solution_string =  get_solution_string(params[:string])
 	end
-	erb :sudoku
+	haml :sudoku
 end
 
 
