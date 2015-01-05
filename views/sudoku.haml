@@ -1,8 +1,9 @@
 - if @string
-  #solution_string{:style => "visibility:hidden"}= @solution_string
+  #solution_string{:style => "display:none"}= @solution_string
 %header
+  %h1 Sudoku Solver
   %h2 This Webpage is designed to do one thing: Solve Sudoku puzzles!
-  %h3 Type in the numbers you know and hit Submit
+  %p Type in the numbers you know and hit Submit
 %main
   %section
     #board
@@ -15,3 +16,4 @@
                   %input{:type => "text", :maxlength => "1", :size => "1"}
       #submit_button
         %button{:onclick => "go();", :type => "button"} Submit!
+        %a{:href => "/", :class => "button"} Clear
