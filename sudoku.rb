@@ -243,7 +243,6 @@ class Game
   end
 end
 
-
 #####################################################
 # drive program from commandline for development
 #####################################################
