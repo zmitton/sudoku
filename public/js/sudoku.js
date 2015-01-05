@@ -8,7 +8,6 @@ window.onload = function() {
             this.select();
         };
         $input_field.onkeyup = advanceCell;
-
     });
 };
 
@@ -20,9 +19,41 @@ function advanceCell() {
         $("#" + next_cell).children()[0].select();
     }
 }
+
 function colorCell(cell) {
-    console.log(cell);
-    $(cell).css("background-color", "blue");
+    var input = cell.value
+    switch (input) {
+        case "1":
+            $(cell).css("background-color", "blue");
+            break;
+        case "2":
+            $(cell).css("background-color", "pink");
+            break;
+        case "3":
+            $(cell).css("background-color", "yellow");
+            break;
+        case "4":
+            $(cell).css("background-color", "red");
+            break;
+        case "5":
+            $(cell).css("background-color", "orange");
+            break;
+        case "6":
+            $(cell).css("background-color", "purple");
+            break;
+        case "7":
+            $(cell).css("background-color", "green");
+            break;
+        case "8":
+            $(cell).css("background-color", "black");
+            break;
+        case "9":
+            $(cell).css("background-color", "teal");
+            break;
+        default:
+            $(cell).css("background-color", "white");
+            break;
+    }
 }
 
 function go() {
@@ -44,9 +75,11 @@ function make_string() {
 
 function fill_board_with_solution() {
     for (i = 1; i <= 81; i++) {
-        cell = $('#' + i + ' input');
+        var cell = $('#' + i + ' input');
+        $setCell = cell;
         value = $("#solution_string").text().charAt(i - 1);
-        cell.val(value);
-        console.log(cell.val(value));
+        $setCell.val(value);
+        cell.value = value;
+        colorCell(cell);
     }
 }
