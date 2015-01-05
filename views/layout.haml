@@ -1,14 +1,12 @@
 !!!
-%html{:lang => "en", :"ng-app" => "sudoku"}
+%html{:lang => "en"}
   %head
     %meta{:content => "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no", :name => "viewport"}/
     %meta{:charset => "UTF-8"}
       %link{:href => "css/style.css", :rel => "stylesheet", :type => "text/css"}
         %script{:src => "js/sudoku.js"}
-        %script{:src => "https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.8/angular.min.js"}
-        %script{:src => "js/sudoku-app.js"}
         %script{:src => "http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"}
 
         %title Sudoku Solver
-  %body{:"ng-controller" => "SudokuCtrl"}
+  %body
     = yield  
