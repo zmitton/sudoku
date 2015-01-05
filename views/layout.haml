@@ -10,5 +10,5 @@
         %script{:src => "http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"}
 
         %title Sudoku Solver
-  %body
-    = yield
+  %body{:"ng-controller" => "SudokuCtrl"}
+    = yield  
