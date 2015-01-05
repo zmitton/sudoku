@@ -17,7 +17,7 @@ configure do
 		config.fonts_dir = "public/fonts"
 		config.javascripts_dir = "public/js"
 		config.relative_assets = true
-		output_style = :compressed
+		output_style = :expanded
 		line_comments = false
   end
 

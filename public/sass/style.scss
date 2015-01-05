@@ -1,5 +1,5 @@
 @import "compass/reset";
-@import "compass";
+@import "compass/css3";
 @import "bourbon/bourbon";
 @import "neat/neat";
 @import "bitters/bitters";
@@ -19,7 +19,6 @@ $dark-blue: #141b3e;
 input[type="text"] {
   height: 55px;
   width: 55px;
-  // @include transition(background-color 0.5s ease);
   @include transition(height 0.1s ease, width 0.1s ease, background-color 0.5s ease);
   @include respondto(phone) {
     height: 30px;
@@ -49,7 +48,6 @@ td {
   padding: 0;
   height: 55px;
   width: 55px;
-  // @include transition(height 0.25s ease, width 0.25s ease);
   @include respondto(phone) {
     height: 30px;
     width: 30px;
@@ -123,7 +121,6 @@ table {
   text-align: center;
   vertical-align: middle;
   table-layout: auto;
-  // @include transition(height 0.25s ease, width 0.25s ease);
   tr {
     td {
       background: #f0f6fa;
@@ -212,6 +209,9 @@ table {
   &:hover {
     background-color: lighten($dark-blue, 10%);
     color: white;
+  }
+  &:focus, &:active {
+    outline: none !important;
   }
 }
 

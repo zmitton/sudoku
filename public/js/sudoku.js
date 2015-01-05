@@ -13,15 +13,20 @@ window.onload = function() {
 
 function advanceCell() {
     $cell = this;
-    colorCell($cell);
-    var next_cell = parseInt(this.parentNode.id) + 1;
-    if (next_cell <= 81) {
-        $("#" + next_cell).children()[0].select();
+    console.log($cell.value);
+    if (/(\d|\s)/.test($cell.value)) {
+        colorCell($cell);
+        var next_cell = parseInt(this.parentNode.id) + 1;
+        if (next_cell <= 81) {
+            $("#" + next_cell).children()[0].select();
+        }
+    } else {
+        $cell.value = "";
     }
 }
 
 function colorCell(cell) {
-    var input = cell.value
+    var input = cell.value;
     switch (input) {
         case "1":
             $(cell).css("background-color", "#62cec7");
@@ -59,6 +64,11 @@ function colorCell(cell) {
 function go() {
     var string = make_string();
     window.location.href = "/" + string;
+    setTimeout(function() {
+        if (!(document.getElementById("solution_string"))) {
+            location.reload(true);
+        }
+    }, 5000);
 }
 
 function make_string() {
