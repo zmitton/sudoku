@@ -217,6 +217,7 @@ end
 
 
 class Game
+  include SudokuUtilities
   def initialize(input_string)
     @board = Sudoku.new(input_string)
   end
@@ -234,7 +235,5 @@ end
 #####################################################
 
 input_string = File.readlines('sample.unsolved.txt')[14].chomp
-board = Sudoku.new(input_string)
-board.solve!
-board.print_board
-board.stringify
+game = Game.new(input_string)
+game.play_sudoku

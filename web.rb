@@ -34,21 +34,22 @@ get '/api/solve_string/:string' do
  content_type :json
 	 if params[:string]
 		@string = Game.new(params[:string])
+		@solution_string = @string.play_sudoku
 	 end
 end
 
 get '/:string' do
 	if params[:string]
-		@string = params[:string]
-		@solution_string =  get_solution_string(params[:string])
+		@string = Game.new(params[:string])
+		@solution_string = @string.play_sudoku
 	end
 	haml :sudoku
 end
 
 get '/' do
 	if params[:string]
-		@string = params[:string]
-		@solution_string =  get_solution_string(params[:string])
+		@string = Game.new(params[:string])
+		@solution_string = @string.play_sudoku
 	end
 	haml :sudoku
 end
