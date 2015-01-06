@@ -1,5 +1,3 @@
-require 'pry'
-
 module SudokuUtilities
   def validate_input(cell_input)
     [*1..9].include?(cell_input.to_i) ? cell_input.to_i : [*1..9]

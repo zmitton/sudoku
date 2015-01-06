@@ -1,13 +1,3 @@
-// $( document ).ready(function() {
-//   console.log("ready");
-// });
-// document.addEventListener("DOMContentLoaded", theDomHasLoaded, false);
-
-// function theDomHasLoaded(e) {
-//     console.log("loaded");
-// }
-
-
 
 window.onload = function() {
     if (document.getElementById("solution_string")) {
@@ -21,31 +11,6 @@ window.onload = function() {
         $input_field.onkeyup = advanceCell;
     });
 };
-
-function animateSolution() {
-
-    $(".table_cell input").each(function() {
-        var cell = $(this);
-        var i = 0;
-        if ($(this).val() === "") {
-            if (i++ )
-        }
-    });
-}
-
-var myDiv = document.getElementById("animatebox");
-var i = 0;    
-
-function doAnimate() {
-    if (i++ % 2)
-        myDiv.style.backgroundColor = "blue";
-    else
-        myDiv.style.backgroundColor = "red";
-  
-    setTimeout(doAnimate, 20);
-};
-    
-doAnimate();
 
 function advanceCell() {
     $cell = this;

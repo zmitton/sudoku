@@ -4,15 +4,24 @@
 @import "neat/neat";
 @import "base/base";
 @import "partials/mixins";
+@import "partials/neon";
 
 $font-fixed: "Source Code Pro";
-$font-normal: "Pontano Sans";
+$font-normal: "Las Enter Personal Use Only", cursive;
 $font-headings: "Nixie One";
+$non-light: "Text Me One";
+$neon2: "League Script";
 
 $dark-blue: #141b3e;
 
 .container {
   @include outer-container;
+  margin-top: 30px;
+}
+
+body, p {
+  font-family: $font-normal;
+  font-size: 18px;
 }
 
 // reset
@@ -23,6 +32,7 @@ input[type="text"] {
   @include respondto(phone) {
     height: 30px;
     width: 30px;
+    z-index: 2;
   }
 
   @include respondto(tablet-portrait) {
@@ -59,12 +69,11 @@ td {
   }
 }
 
-h1, h2, body {
-  color: $dark-blue;
-}
-
 p {
-  color: desaturate(lighten($dark-blue, 10%), 20%);
+  font-size: 40px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  font-family: $non-light;
 }
 
 h1 {
@@ -73,43 +82,20 @@ h1 {
 }
 
 h2 {
-  font-family: $font-normal;
+  font-family: $non-light;
   margin-bottom: 20px;
-  font-size: 1.4em;
+  font-size: 3em;
+  margin-top: 10px;
 }
 
-body, p {
-  font-family: $font-normal;
-  font-size: 18px;
+h3 {
+  font-family: $neon2;
+  font-size: 4em;
 }
 
 header {
   padding: 10px;
   text-align: center;
-}
-
-#board {
-  text-align: center;
-  #display {
-    margin: 0 auto;
-    border: 8px solid $dark-blue;
-    height: 527px;
-    width: 527px;
-    @include transition(height 0.15s ease, width 0.15s ease);
-    @include respondto(phone) {
-      width: 296px;
-      height: 296px;
-      border: 5px solid $dark-blue;
-    }
-
-    @include respondto(tablet-portrait) {
-      height: 388px;
-      width: 388px;
-      border: 6px solid $dark-blue;
-    }
-
-    text-align: center;
-  }
 }
 
 $sq-dim: 55px;
@@ -121,15 +107,17 @@ table {
   text-align: center;
   vertical-align: middle;
   table-layout: auto;
+  // @include neon-box-shadow2($color: $green);
   tr {
     td {
-      background: #f0f6fa;
       background-clip: content-box;
-      border-right: 2px solid transparent;
-      border-bottom: 2px solid transparent;
+      border-right: 2px #272727 groove;
+      @include box-shadow(2px 0px 2px -1px #424242, 0px 2px 2px -1px #424242);
+      border-bottom: 2px #272727 groove;
       @include transition(height 0.25s ease, width 0.25s ease);
       &:nth-child(3n+3) {
-        border-right: 2px solid $dark-blue;
+        border-right: 2px black groove;
+        @include box-shadow(3px 0px 3px -2px #424242);
         width: $sq-dim + 2px;
         height: $sq-dim;
         @include respondto(phone) {
@@ -144,6 +132,7 @@ table {
       }
       &:last-child {
         border-right: none;
+        @include box-shadow(none);
         width: $sq-dim;
         height: $sq-dim;
         @include respondto(phone) {
@@ -159,7 +148,7 @@ table {
     }
     &:nth-child(3n+3) {
       > td {
-        border-bottom: 2px solid $dark-blue;
+        border-bottom: 2px black groove;
         height: $sq-dim + 2px;
         width: $sq-dim;
         @include respondto(phone) {
@@ -176,6 +165,7 @@ table {
     &:last-child {
       > td {
         border-bottom: none;
+        @include box-shadow(none);
         height: $sq-dim;
         width: $sq-dim;
         @include respondto(phone) {

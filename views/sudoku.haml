@@ -1,8 +1,9 @@
 - if @string
   #solution_string{:style => "display:none"}= @solution_string
 %header
-  %h1 Sudoku Solver
-  %h2 This Webpage is designed to do one thing: Solve Sudoku puzzles!
+  #neon-heading Sudoku Solver
+  %h2 This site does one thing: 
+  %h3.neon2 Solve Sudoku puzzles!
   %p Type in the numbers you know and hit Submit
 %main
   %section
@@ -14,6 +15,7 @@
               - row.each do |i|
                 %td.table_cell{:id => "#{i}"}
                   %input{:type => "text", :maxlength => "1", :size => "1"}
+      #cover
       #submit_button
         %button{:onclick => "go();", :type => "button"} Submit!
         %a{:href => "/", :class => "button"} Clear
