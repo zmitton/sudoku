@@ -39,8 +39,6 @@ $color_mine_shaft_61_approx: rgba(46, 46, 46, 0.61);
 
 //fonts
 $font_0: "Nixie One";
-$font_1: Helvetica;
-$font_2: Arial;
 
 body {
   background-color: #3f3f3f;
@@ -48,23 +46,13 @@ body {
 }
 
 i {
-  font: normal 170px / 85px $font_0, $font_1, $font_2;
+  font: normal 170px / 85px $font_0;
   color: #EEDDE0;
   @include text-shadow(0 0 30px #EC637B, 0 0 10px $color_wewak_41_approx, 0 0 100px #E6A1AD, 0 0 500px #F36780, 5px 9px 5px $black_50);
   &.off {
     color: $color_mine_shaft_61_approx;
     @include text-shadow(7px 7px 5px $black_50);
   }
-}
-
-.neon2 {
-  margin: 0;
-  padding: 0;
-  line-height: 70px;
-  font-family: 'Las Enter Personal Use Only', cursive;
-  font-size: 80px;
-  color: $blue-glow;
-  @include neon-text-shadow;
 }
 
 #board {

@@ -3,6 +3,7 @@
 @import "bourbon/bourbon";
 @import "neat/neat";
 @import "base/base";
+@import "partials/fonts";
 @import "partials/mixins";
 @import "partials/neon";
 
@@ -10,7 +11,6 @@ $font-fixed: "Source Code Pro";
 $font-normal: "Las Enter Personal Use Only", cursive;
 $font-headings: "Nixie One";
 $non-light: "Text Me One";
-$neon2: "League Script";
 
 $dark-blue: #141b3e;
 
@@ -89,7 +89,7 @@ h2 {
 }
 
 h3 {
-  font-family: $neon2;
+  font-family: $font-normal;
   font-size: 4em;
 }
 
@@ -107,7 +107,6 @@ table {
   text-align: center;
   vertical-align: middle;
   table-layout: auto;
-  // @include neon-box-shadow2($color: $green);
   tr {
     td {
       background-clip: content-box;
@@ -184,27 +183,47 @@ table {
 
 .button, button {
   -webkit-font-smoothing: antialiased;
-  font-family: $font-normal;
+  -webkit-appearance: none;
+  appearance: none;
+  -moz-appearance: none;
+  background: transparent;
+  // font-family: $font-normal;
   vertical-align: bottom;
-  background-color: $dark-blue;
+  // background-color: $dark-blue;
   border-radius: 0;
-  color: white;
+  // color: white;
+  border: none;
   display: inline-block;
   font-size: 1em;
   font-weight: normal;
   line-height: 1;
   padding: .75em 1em;
   text-decoration: none;
-  @include transition(background-color 0.5s ease);
+  // @include transition(background-color 0.5s ease);
   &:hover {
-    background-color: lighten($dark-blue, 10%);
-    color: white;
+    // background-color: lighten($dark-blue, 10%);
+    // color: white;
+    background: transparent;
+    // padding: 20px;
+ 
   }
   &:focus, &:active {
     outline: none !important;
   }
 }
 
+.neon2 {
+  margin: 0;
+  padding: 40px 60px;
+  line-height: 70px;
+  font-family: 'Las Enter Personal Use Only', cursive;
+  font-size: 80px;
+  color: $blue-glow;
+  @include neon-text-shadow;
+}
+
 #submit_button {
-  margin-top: 20px;
+  // margin-top: 20px;
+  position: relative;
+  bottom: 480px;
 }
