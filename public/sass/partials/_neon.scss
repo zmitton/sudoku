@@ -1,7 +1,3 @@
-////////////////////////
-
-//colors
-
 $blue: #14a5ff;
 $blue-glow: #22cef9;
 $blue-glow2: #89edff;
@@ -71,26 +67,6 @@ i {
   @include neon-text-shadow;
 }
 
-// .neon2 {
-//   text-align: center;
-//   margin: 100px auto;
-//   font-family: "Quicksand";
-//   font-size: 100px;
-//   text-transform: uppercase;
-//   color: #fff;
-//   -webkit-animation: pulse 1s ease-in-out infinite alternate;
-//   -webkit-backface-visibility: hidden;
-// }
-
-// @-webkit-keyframes pulse {
-//   from {
-//     text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px rgba(255, 255, 255, 0.2), 0 0 70px rgba(255, 255, 255, 0.2), 0 0 80px rgba(255, 255, 255, 0.2), 0 0 100px rgba(255, 255, 255, 0.2), 0 0 150px rgba(255, 255, 255, 0.2);
-//   }
-//   to {
-//     text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px rgba(255, 255, 255, 0.2), 0 0 35px rgba(255, 255, 255, 0.2), 0 0 40px rgba(255, 255, 255, 0.2), 0 0 50px rgba(255, 255, 255, 0.2), 0 0 75px rgba(255, 255, 255, 0.2);
-//   }
-// }
-
 #board {
   text-align: center;
   z-index: 0;
@@ -99,20 +75,15 @@ i {
     height: 520px;
     width: 527px;
     background-color: transparent;
-    // border: 3px solid $green;
     border-radius: 10px;
-    // z-index: 100;
-    // @include neon-box-shadow($green-glow);
     @include respondto(phone) {
       width: 296px;
       height: 296px;
-      // border: 5px solid $green;
     }
 
     @include respondto(tablet-portrait) {
       height: 388px;
       width: 388px;
-      // border: 6px solid $green;
     }
 
     text-align: center;
@@ -136,7 +107,6 @@ i {
   }
 }
 
-///////////////
 h2, p, h3 {
   color: black;
   text-shadow: 0px 2px 3px #303030;
