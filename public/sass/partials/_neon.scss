@@ -47,6 +47,14 @@ body {
 
 i {
   font: normal 170px / 85px $font_0;
+  @include respondto(tablet-portrait) {
+    font: normal 130px / 55px $font_0;
+  }
+
+  @include respondto(phone) {
+    font: normal 90px / 45px $font_0;
+  }
+
   color: #EEDDE0;
   @include text-shadow(0 0 30px #EC637B, 0 0 10px $color_wewak_41_approx, 0 0 100px #E6A1AD, 0 0 500px #F36780, 5px 9px 5px $black_50);
   &.off {
