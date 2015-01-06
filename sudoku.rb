@@ -56,7 +56,6 @@ class Sudoku
 
       return has_mistakes? ?  false :  guessing_method
     end
-    self
   end
 
   def has_mistakes?
@@ -108,7 +107,7 @@ class Sudoku
       something_changed = false
       loop_board do |cell|
         deletions = cell.possibilities.each_with_object([]) do |possibility, to_delete|
-          
+
           check_for_deletions = lambda do |c|
             if c.content == possibility
               to_delete << possibility
@@ -193,6 +192,19 @@ class Sudoku
       end
     end
   end
+
+  def validate_solution
+    return false if !finished?
+    square_total, row_total, column_total = 0, 0, 0
+      (0..2).each do |outside_index|
+         (0..2).each do |inside_index|
+              loop_square(outside_index, inside_index) {|cell| square_total += cell.content}
+              loop_row(outside_index, inside_index) {|cell| row_total += cell.content}
+              loop_column(outside_index, inside_index) {|cell| column_total += cell.content}
+          end
+       end
+    false unless 405 == square_total && row_total && column_total
+  end
 end
 
 
@@ -217,6 +229,7 @@ end
 
 
 class Game
+  include SudokuUtilities
   def initialize(input_string)
     @board = Sudoku.new(input_string)
   end
@@ -224,17 +237,15 @@ class Game
   def play_sudoku
     @board.solve!
     @board.print_board
+    # @board.validate_solution ? @board.stringify : false
     @board.stringify
   end
 end
-
 
 #####################################################
 # drive program from commandline for development
 #####################################################
 
-input_string = File.readlines('sample.unsolved.txt')[14].chomp
-board = Sudoku.new(input_string)
-board.solve!
-board.print_board
-board.stringify
+input_string = File.readlines('sample.unsolved.txt')[13].chomp
+game = Game.new(input_string)
+game.play_sudoku

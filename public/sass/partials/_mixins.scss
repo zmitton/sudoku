@@ -1,0 +1,40 @@
+@mixin respond-to($media) {
+  @if $media == phone {
+    @media (max-width: 480px) {
+      @content;
+    }
+  }
+  @else if $media == tablet-portrait {
+    @media (min-width: 481px) and (max-width: 768px) {
+      @content;
+    }
+  }
+  @else if $media == tablet-landscape {
+    @media (min-width: 769px) and (max-width: 1024px) {
+      @content;
+    }
+  }
+  @else if $media == desktop {
+    @media (min-width: 1025px) and (max-width: 1440px) {
+      @content;
+    }
+  }
+  @else if $media == large-desktop {
+    @media (min-width: 1441px) {
+      @content;
+    }
+  }
+  @else {
+    @media screen and (max-width: #{$media}px) {
+      @content;
+    }
+  }
+}
+
+@mixin respondto($media...) {
+  @each $mediatype in $media {
+    @include respond-to($mediatype) {
+      @content;
+    }
+  }
+}
