@@ -32,7 +32,7 @@ function go() {
         if (!(document.getElementById("solution_string"))) {
             location.reload(true);
         }
-    }, 5000);
+    }, 6000);
 }
 
 function make_string() {
