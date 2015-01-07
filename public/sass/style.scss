@@ -2,42 +2,51 @@
 @import "compass";
 @import "bourbon/bourbon";
 @import "neat/neat";
-@import "base/base";
+@import "partials/variables";
 @import "partials/fonts";
 @import "partials/mixins";
-@import "partials/neon";
-
-$font-fixed: "Source Code Pro";
-$font-normal: "Las Enter Personal Use Only", cursive;
-$font-headings: "Nixie One";
-$non-light: "Text Me One";
-
-$dark-blue: #141b3e;
+@import "partials/animations";
 
 .container {
   @include outer-container;
-  margin-top: 30px;
+  margin-top: 60px;
 }
 
 body, p {
   font-family: $font-normal;
   font-size: 18px;
+  background: url(img/twinkle_twinkle_@2X.png);
 }
 
-// reset
+main {
+  margin-top: 100px;
+}
+
+section {
+  @include row;
+}
+
+header {
+  padding: 10px;
+  text-align: center;
+}
+
 input[type="text"] {
   height: 55px;
   width: 55px;
-  @include transition(height 0.1s ease, width 0.1s ease, background-color 0.5s ease);
+  font-size: 2em;
+  @include transition(height 0.1s ease, width 0.1s ease);
   @include respondto(phone) {
     height: 30px;
     width: 30px;
     z-index: 2;
+    font-size: 1.4em;
   }
 
   @include respondto(tablet-portrait) {
     height: 40px;
     width: 40px;
+    font-size: 1.6em;
   }
 
   &:focus {
@@ -46,11 +55,12 @@ input[type="text"] {
   }
   margin-bottom: 0;
   border: none;
-  box-shadow: none;
   border-radius: 0;
   background: transparent;
   text-align: center;
-  font-family: $font-fixed;
+  font-family: $font-numbers;
+  @include box-shadow(none);
+  @include pinkglow-on;
 }
 
 td {
@@ -69,30 +79,27 @@ td {
   }
 }
 
-p {
-  font-size: 40px;
-  @include respondto(phone) {
-    font-size: 25px;
-  }
-
-  margin-top: 10px;
-  margin-bottom: 20px;
-  font-family: $non-light;
-  font-weight: bold;
-}
-
 h1 {
   font-family: $font-headings;
-  margin-bottom: 5px;
+  span {
+    @include pinkglow-on;
+    &.pulse {
+      @include animation(blink1 step-start 3s -6s infinite backwards, blink2 step-start 5s infinite alternate, blink3 linear 5s -2s infinite alternate-reverse);
+    }
+    &.pulse2 {
+      @include animation(blink1 step-start 15s 0s infinite forwards);
+    }
+    &.flicker {
+      @include animation(blink1 step-start 5s -2s infinite alternate-reverse, blink3 linear 5s infinite alternate);
+    }
+  }
 }
 
 h2 {
-  font-family: $non-light;
   margin-bottom: 20px;
   font-size: 3em;
   @include respondto(tablet-portrait) {
     font-size: 2.5em;
-    // line-height: 2.6em;
   }
 
   @include respondto(phone) {
@@ -104,14 +111,16 @@ h2 {
   font-weight: bold;
 }
 
-h3 {
+h1#neon-heading {
   font-family: $font-normal;
-  font-size: 4em;
-}
+  font: normal 170px / 85px $font_0;
+  @include respondto(tablet-portrait) {
+    font: normal 130px / 55px $font_0;
+  }
 
-header {
-  padding: 10px;
-  text-align: center;
+  @include respondto(phone) {
+    font: normal 90px / 45px $font_0;
+  }
 }
 
 $sq-dim: 55px;
@@ -126,12 +135,12 @@ table {
   tr {
     td {
       background-clip: content-box;
-      border-right: 2px #272727 groove;
+      border-right: 2px black groove;
       @include box-shadow(2px 0px 2px -1px #424242, 0px 2px 2px -1px #424242);
-      border-bottom: 2px #272727 groove;
+      border-bottom: 2px black groove;
       @include transition(height 0.25s ease, width 0.25s ease);
       &:nth-child(3n+3) {
-        border-right: 2px black groove;
+        border-right: 2px #001F00 groove;
         @include box-shadow(3px 0px 3px -2px #424242);
         width: $sq-dim + 2px;
         height: $sq-dim;
@@ -163,7 +172,7 @@ table {
     }
     &:nth-child(3n+3) {
       > td {
-        border-bottom: 2px black groove;
+        border-bottom: 2px #001F00 groove;
         height: $sq-dim + 2px;
         width: $sq-dim;
         @include respondto(phone) {
@@ -198,42 +207,35 @@ table {
 }
 
 .button, button {
+  overflow: visible;
   -webkit-font-smoothing: antialiased;
-  -webkit-appearance: none;
+  -webkit-appearance: link;
   appearance: none;
   -moz-appearance: none;
-  background: transparent;
-  // font-family: $font-normal;
+  background: none;
   vertical-align: bottom;
-  // background-color: $dark-blue;
   border-radius: 0;
-  // color: white;
   border: none;
   display: inline-block;
   font-size: 1em;
   font-weight: normal;
   line-height: 1;
-  padding: .75em 1em;
   text-decoration: none;
-  // @include transition(background-color 0.5s ease);
   &:hover {
-    // background-color: lighten($dark-blue, 10%);
-    // color: white;
-    background: transparent;
-    // padding: 20px;
- 
+    background: none;
   }
   &:focus, &:active {
     outline: none !important;
   }
 }
 
-.neon2 {
+.neon-blue {
   margin: 0;
   padding: 40px 60px;
-  line-height: 70px;
-  font-family: 'Las Enter Personal Use Only', cursive;
-  font-size: 80px;
+  position: relative;
+  font-family: $font-script;
+  cursor: pointer;
+  font-size: 60px;
   @include respondto(tablet-portrait) {
     font-size: 60px;
     line-height: 50px;
@@ -251,14 +253,72 @@ table {
 }
 
 #submit_button {
-  // margin-top: 20px;
+  @include span-columns(4);
   position: relative;
-  bottom: 480px;
+  text-align: center;
+  // bottom: 480px;
   @include respondto(tablet-portrait) {
     bottom: 380px;
+    @include span-columns(12);
   }
 
   @include respondto(phone) {
     bottom: 280px;
+    @include span-columns(12);
+  }
+}
+
+#board {
+  text-align: center;
+  position: relative;
+  margin: 0 auto;
+  z-index: 0;
+  overflow: visible;
+  @include span-columns(8);
+  @include respondto(phone) {
+    @include span-columns(12);
+  }
+
+  @include respondto(tablet-portrait) {
+    @include span-columns(12);
+  }
+
+  #display, #cover {
+    margin: 0 auto;
+    height: 520px;
+    width: 527px;
+    background-color: transparent;
+    border-radius: 10px;
+    @include respondto(phone) {
+      width: 296px;
+      height: 296px;
+    }
+
+    @include respondto(tablet-portrait) {
+      height: 388px;
+      width: 388px;
+    }
+
+    text-align: center;
+    table {
+      @include box-shadow(inset $glow-4 #192b16);
+    }
+  }
+  #cover {
+    position: relative;
+    bottom: 528px;
+    border: 5px solid $green-light;
+    border-radius: 10px;
+    pointer-events: none;
+    @include green-glow;
+    @include respondto(phone) {
+      border: 3px solid $green-light;
+      bottom: 302px;
+    }
+
+    @include respondto(tablet-portrait) {
+      border: 4px solid $green-light;
+      bottom: 397px;
+    }
   }
 }

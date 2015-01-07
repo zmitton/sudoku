@@ -1,0 +1,70 @@
+@include keyframes(blink1) {
+  0% {
+    @include pinkglow-on;
+  }
+  2% {
+    @include pinkglow-off;
+  }
+  3% {
+    @include pinkglow-on;
+  }
+  5% {
+    @include pinkglow-off;
+  }
+  7% {
+    @include pinkglow-on;
+  }
+  90% {
+    @include pinkglow-on;
+  }
+  91% {
+    @include pinkglow-off;
+  }
+  93% {
+    @include pinkglow-on;
+  }
+  96% {
+    @include pinkglow-off;
+  }
+}
+
+
+@include keyframes(blink2) {
+  0% {
+    @include pinkglow-on;
+  }
+  2% {
+    @include pinkglow-off;
+  }
+  3% {
+    @include pinkglow-on;
+  }
+  5% {
+    @include pinkglow-off;
+  }
+  7% {
+    @include pinkglow-on;
+  }
+  80% {
+    @include pinkglow-off;
+  }
+}
+
+
+@include keyframes(blink3) {
+  0% {
+    @include pinkglow-on;
+  }
+  3% {
+    @include pinkglow-off;
+  }
+  4% {
+    @include pinkglow-on;
+  }
+  8% {
+    @include pinkglow-off;
+  }
+  96% {
+    @include pinkglow-off;
+  }
+}
