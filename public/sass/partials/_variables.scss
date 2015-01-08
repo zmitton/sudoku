@@ -12,21 +12,5 @@ $green-dark: #4e7949;
 $green-inset-shadow: #192b16;
 $grey-indent: #424242;
 
-
-// _config.scss
-$colors: (
-  blue-alpha: rgba(20, 165, 255, 0.6),
-  blue: rgba(144, 220, 255, 0.860),
-  blue-glow: #22cef9,
-  blue-wrap-shadow: #3c6fa3,
-  blue-shadow: rgba(45, 47, 48, 0.4),
-  darkest-alpha: rgba(0, 0, 0, 0.5),
-  dark-alpha: rgba(46, 46, 46, 0.61),
-  pink-light: #EEDDE0,
-  pink: #EEDDE0,
-  pink-light-alpha: rgba(230, 161, 173, 0.41),
-  pink-pastel: #E6A1AD,
-  pink-bright: #F36780,
-  pink-darker: #EC637B
-);
-
+// neon (text) colors...put green in there after making a generic neon box shadow
+$colors: (blue-alpha: rgba(20, 165, 255, 0.6), blue: rgba(144, 220, 255, 0.86), blue-glow: #22cef9, blue-wrap-shadow: #3c6fa3, blue-shadow: rgba(45, 47, 48, 0.4), darkest-alpha: rgba(0, 0, 0, 0.5), dark-alpha: rgba(46, 46, 46, 0.61), pink-light: #EEDDE0, pink: #EEDDE0, pink-light-alpha: rgba(230, 161, 173, 0.41), pink-pastel: #E6A1AD, pink-bright: #F36780, pink-darker: #EC637B);
