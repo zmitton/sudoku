@@ -72,7 +72,6 @@ td {
   width: 55px;
   font-family: $font-numbers;
   color: map-get($colors, pink-light);
-
   @include respondto(phone) {
     height: 30px;
     width: 30px;
@@ -294,4 +293,32 @@ $small: small;
     line-height: 55px;
     padding: 20px 40px;
   }
+}
+
+footer {
+  @include row;
+  text-align: center;
+  position: relative;
+  margin-top: 20px;
+  bottom: 250px;
+  padding: 30px;
+}
+
+.authors, .links {
+  @include neon-text($blue, $small);
+  font-family: $font-numbers;
+  font-size: 40px;
+  span {
+    @include neon-text($pink, $large);
+    white-space: nowrap;
+  }
+  a {
+    @include neon-text($pink, $large);
+    font-family: $font-script;
+    text-decoration: none;
+  }
+}
+
+.links {
+  margin-top: 15px;
 }
