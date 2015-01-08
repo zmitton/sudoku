@@ -72,7 +72,7 @@ td {
   width: 55px;
   font-family: $font-numbers;
   color: map-get($colors, pink-light);
-  // @include neon-text($pink, $small);
+
   @include respondto(phone) {
     height: 30px;
     width: 30px;
@@ -114,7 +114,6 @@ h1 {
   text-align: center;
   position: relative;
   margin: 0 auto;
-  // z-index: 0;
   overflow: visible;
   @include span-columns(8);
   @include respondto(phone) {
