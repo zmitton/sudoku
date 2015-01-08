@@ -1,70 +1,74 @@
+
+$pink: pink;
+$large: large;
+
 @include keyframes(blink1) {
   0% {
-    @include pinkglow-on;
+    @include neon-text($pink, $large);
   }
   2% {
-    @include pinkglow-off;
+    @include neon-text-off;
   }
   3% {
-    @include pinkglow-on;
+    @include neon-text($pink, $large);
   }
   5% {
-    @include pinkglow-off;
+    @include neon-text-off;
   }
   7% {
-    @include pinkglow-on;
+    @include neon-text($pink, $large);
   }
   90% {
-    @include pinkglow-on;
+    @include neon-text($pink, $large);
   }
   91% {
-    @include pinkglow-off;
+    @include neon-text-off;
   }
   93% {
-    @include pinkglow-on;
+    @include neon-text($pink, $large);
   }
   96% {
-    @include pinkglow-off;
+    @include neon-text-off;
   }
 }
 
 
 @include keyframes(blink2) {
   0% {
-    @include pinkglow-on;
+    @include neon-text($pink, $large);
   }
   2% {
-    @include pinkglow-off;
+    @include neon-text-off;
   }
   3% {
-    @include pinkglow-on;
+    @include neon-text($pink, $large);
   }
   5% {
-    @include pinkglow-off;
+    @include neon-text-off;
   }
   7% {
-    @include pinkglow-on;
+    @include neon-text($pink, $large);
   }
   80% {
-    @include pinkglow-off;
+    @include neon-text-off;
   }
 }
 
 
 @include keyframes(blink3) {
   0% {
-    @include pinkglow-on;
+    @include neon-text($pink, $large);
   }
   3% {
-    @include pinkglow-off;
+    @include neon-text-off;
   }
   4% {
-    @include pinkglow-on;
+    @include neon-text($pink, $large);
   }
   8% {
-    @include pinkglow-off;
+    @include neon-text-off;
   }
   96% {
-    @include pinkglow-off;
+    @include neon-text-off;
   }
 }

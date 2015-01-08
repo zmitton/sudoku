@@ -1,35 +1,32 @@
-$font-fixed: "Source Code Pro", monospaced;
 $font-script: "Las Enter Personal Use Only", cursive;
 $font-headings: "Nixie One";
-$font-normal: "Text Me One";
 $font-numbers: "Electronica";
 
-$dark-blue: #141b3e;
-
-$blue: rgba(20, 165, 255, 0.6);
-$blue-glow: #22cef9;
-$blue-glow2: #89edff;
-$blue-wrap-shadow: #3c6fa3;
-$blue-shadow: rgba(45, 47, 48, 0.4);
-$red: #f90000;
-$red-glow: #ff1919;
-$bkg: #222;
 $green-light: #daffab;
-
-$green-light2: rgba(218, 255, 171, 0.6);
+$green-light-alpha: rgba(218, 255, 171, 0.6);
 $green-glow: #b3ff51;
-$green-glow2: rgba(179, 255, 81, 0.6);
+$green-glow-alpha: rgba(179, 255, 81, 0.6);
 $green3: #34ed0e;
 $green: #3bd529;
 $green-dark: #4e7949;
+$green-inset-shadow: #192b16;
+$grey-indent: #424242;
 
-$black_4: rgba(0, 0, 0, 0.04);
-$black_73: rgba(0, 0, 0, 0.73);
-$color_bizarre_approx: #eedde0;
-$color_brink_pink_approx: #ec637b;
-$color_wewak_approx: #e6a1ad;
-$color_wewak_41_approx: rgba(230, 161, 173, 0.41);
-$black_50: rgba(0, 0, 0, 0.5);
-$color_mine_shaft_61_approx: rgba(46, 46, 46, 0.61);
 
-$font_0: "Nixie One";
+// _config.scss
+$colors: (
+  blue-alpha: rgba(20, 165, 255, 0.6),
+  blue: rgba(144, 220, 255, 0.860),
+  blue-glow: #22cef9,
+  blue-wrap-shadow: #3c6fa3,
+  blue-shadow: rgba(45, 47, 48, 0.4),
+  darkest-alpha: rgba(0, 0, 0, 0.5),
+  dark-alpha: rgba(46, 46, 46, 0.61),
+  pink-light: #EEDDE0,
+  pink: #EEDDE0,
+  pink-light-alpha: rgba(230, 161, 173, 0.41),
+  pink-pastel: #E6A1AD,
+  pink-bright: #F36780,
+  pink-darker: #EC637B
+);
+

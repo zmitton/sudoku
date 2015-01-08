@@ -39,39 +39,33 @@
   }
 }
 
-$glow-1: 0 0 2px;
-$glow-2: 0 0 3px;
-$glow-3: 0 0 12px;
-$glow-4: 0 0 38px;
-$glow-5: 0 0 18px;
-$shadow: 4px 3px 2px;
 
-@mixin neon-text-shadow($color: $blue) {
-  @include text-shadow($glow-2 $blue-glow, $glow-3 $blue-wrap-shadow, $glow-5 $blue-glow, $shadow $blue-shadow);
+/*
+NEON TEXT MIXINS
+*/
+
+@mixin neon-text($color, $size) {
+  $glow-sizes1: 0 0 3px, 0 0 12px, 0 0 18px, 4px 3px 2px;
+  $glow-sizes2: 0 0 30px, 0 0 10px, 0 0 100px, 0 0 500px, 5px 9px 5px;
+ 
+  @if $size == small {
+    @include text-shadow(zip($glow-sizes1, get-neon-glow-colors($color, $size)));
+  }
+  @if $size == large {
+    @include text-shadow(zip($glow-sizes2, get-neon-glow-colors($color, $size)));
+  }
+  color: map-get($colors, $color);
 }
 
-@mixin neon-box-shadow($color: $blue) {
-  @include box-shadow($glow-1 $color, $glow-2 $color, $glow-3 $color, $glow-4 $color, inset $glow-1 $color, inset $glow-2 $color, inset $glow-3 $color, inset $glow-4 $color);
-}
-
-@mixin neon-box-shadow-smaller($color: $blue) {
-  @include box-shadow($glow-1 $color, $glow-2 $color, $glow-3 $color, $glow-4 $color, inset $glow-2 $color, inset $glow-3 $color, inset $glow-4 $color);
+@mixin neon-text-off {
+  color: map-get($colors, dark-alpha);
+  @include text-shadow(4px 7px 3px map-get($colors, darkest-alpha));
 }
 
 @mixin green-glow {
-  @include box-shadow(0 0 10px $green, 0 0 30px $green-glow2, 0 0 80px $green-light2, 5px 9px 5px $black_50, inset $glow-4 #192b16);
+  @include box-shadow(0 0 10px $green, 0 0 30px $green-glow-alpha, 0 0 80px $green-light-alpha, 5px 9px 5px map-get($colors, darkest-alpha), inset 0 0 38px $green-inset-shadow);
 }
 
-@mixin neon-box-shadow2($color: $blue) {
-  @include box-shadow(0 0 50px $color, 0 0 5px $color, 0 0 2px $color, 0 0 1px $color);
-}
 
-@mixin pinkglow-on {
-  color: #EEDDE0;
-  @include text-shadow(0 0 30px #EC637B, 0 0 10px $color_wewak_41_approx, 0 0 100px #E6A1AD, 0 0 500px #F36780, 5px 9px 5px $black_50);
-}
 
-@mixin pinkglow-off {
-  color: $color_mine_shaft_61_approx;
-  @include text-shadow(4px 7px 3px $black_50);
-}
+

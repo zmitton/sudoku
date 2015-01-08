@@ -3,19 +3,18 @@
 @import "bourbon/bourbon";
 @import "neat/neat";
 @import "partials/variables";
+@import "partials/utilities";
 @import "partials/fonts";
 @import "partials/mixins";
 @import "partials/animations";
 
-.container {
-  @include outer-container;
-  margin-top: 60px;
+body {
+  background: url(img/twinkle_twinkle_@2X.png);
 }
 
-body, p {
-  font-family: $font-normal;
-  font-size: 18px;
-  background: url(img/twinkle_twinkle_@2X.png);
+.container { 
+  @include outer-container;
+  margin-top: 60px;
 }
 
 main {
@@ -31,36 +30,36 @@ header {
   text-align: center;
 }
 
+$pink: pink;
+$large: large;
+
 input[type="text"] {
   height: 55px;
   width: 55px;
   font-size: 2em;
-  @include transition(height 0.1s ease, width 0.1s ease);
-  @include respondto(phone) {
-    height: 30px;
-    width: 30px;
-    z-index: 2;
-    font-size: 1.4em;
-  }
-
-  @include respondto(tablet-portrait) {
-    height: 40px;
-    width: 40px;
-    font-size: 1.6em;
-  }
-
-  &:focus {
-    outline: none;
-    box-shadow: none;
-  }
   margin-bottom: 0;
   border: none;
   border-radius: 0;
   background: transparent;
   text-align: center;
   font-family: $font-numbers;
+  @include transition(height 0.1s ease, width 0.1s ease);
   @include box-shadow(none);
-  @include pinkglow-on;
+  @include neon-text($pink, $large);
+  &:focus {
+    outline: none;
+  }
+  @include respondto(tablet-portrait) {
+    height: 40px;
+    width: 40px;
+    font-size: 1.6em;
+  }
+
+  @include respondto(phone) {
+    height: 30px;
+    width: 30px;
+    font-size: 1.4em;
+  }
 }
 
 td {
@@ -80,191 +79,28 @@ td {
 }
 
 h1 {
-  font-family: $font-headings;
+  font: normal 170px / 85px $font-headings;
+  @include respondto(tablet-portrait) {
+    font-size: 130px;
+    line-height: 55px;
+  }
+
+  @include respondto(phone) {
+    font-size: 90px;
+    line-height: 45px;
+  }
+
   span {
-    @include pinkglow-on;
-    &.pulse {
+    @include neon-text($pink, $large);
+    &:nth-child(1) {
       @include animation(blink1 step-start 3s -6s infinite backwards, blink2 step-start 5s infinite alternate, blink3 linear 5s -2s infinite alternate-reverse);
     }
-    &.pulse2 {
+    &:nth-child(2) {
       @include animation(blink1 step-start 15s 0s infinite forwards);
     }
-    &.flicker {
+    &:nth-child(10) {
       @include animation(blink1 step-start 5s -2s infinite alternate-reverse, blink3 linear 5s infinite alternate);
     }
-  }
-}
-
-h2 {
-  margin-bottom: 20px;
-  font-size: 3em;
-  @include respondto(tablet-portrait) {
-    font-size: 2.5em;
-  }
-
-  @include respondto(phone) {
-    font-size: 2em;
-    line-height: 1.3em;
-  }
-
-  margin-top: 10px;
-  font-weight: bold;
-}
-
-h1#neon-heading {
-  font-family: $font-normal;
-  font: normal 170px / 85px $font_0;
-  @include respondto(tablet-portrait) {
-    font: normal 130px / 55px $font_0;
-  }
-
-  @include respondto(phone) {
-    font: normal 90px / 45px $font_0;
-  }
-}
-
-$sq-dim: 55px;
-$sq-dim-sm: 30px;
-$sq-dim-md: 40px;
-
-table {
-  margin: 0 auto;
-  text-align: center;
-  vertical-align: middle;
-  table-layout: auto;
-  tr {
-    td {
-      background-clip: content-box;
-      border-right: 2px black groove;
-      @include box-shadow(2px 0px 2px -1px #424242, 0px 2px 2px -1px #424242);
-      border-bottom: 2px black groove;
-      @include transition(height 0.25s ease, width 0.25s ease);
-      &:nth-child(3n+3) {
-        border-right: 2px #001F00 groove;
-        @include box-shadow(3px 0px 3px -2px #424242);
-        width: $sq-dim + 2px;
-        height: $sq-dim;
-        @include respondto(phone) {
-          height: $sq-dim-sm;
-          width: $sq-dim-sm + 2px;
-        }
-
-        @include respondto(tablet-portrait) {
-          height: $sq-dim-md;
-          width: $sq-dim-md + 2px;
-        }
-      }
-      &:last-child {
-        border-right: none;
-        @include box-shadow(none);
-        width: $sq-dim;
-        height: $sq-dim;
-        @include respondto(phone) {
-          height: $sq-dim-sm;
-          width: $sq-dim-sm;
-        }
-
-        @include respondto(tablet-portrait) {
-          height: $sq-dim-md;
-          width: $sq-dim-md;
-        }
-      }
-    }
-    &:nth-child(3n+3) {
-      > td {
-        border-bottom: 2px #001F00 groove;
-        height: $sq-dim + 2px;
-        width: $sq-dim;
-        @include respondto(phone) {
-          width: $sq-dim-sm;
-          height: $sq-dim-sm + 2px;
-        }
-
-        @include respondto(tablet-portrait) {
-          width: $sq-dim-md;
-          height: $sq-dim-md + 2px;
-        }
-      }
-    }
-    &:last-child {
-      > td {
-        border-bottom: none;
-        @include box-shadow(none);
-        height: $sq-dim;
-        width: $sq-dim;
-        @include respondto(phone) {
-          height: $sq-dim-sm;
-          width: $sq-dim-sm;
-        }
-
-        @include respondto(tablet-portrait) {
-          height: $sq-dim-md;
-          width: $sq-dim-md;
-        }
-      }
-    }
-  }
-}
-
-.button, button {
-  overflow: visible;
-  -webkit-font-smoothing: antialiased;
-  -webkit-appearance: link;
-  appearance: none;
-  -moz-appearance: none;
-  background: none;
-  vertical-align: bottom;
-  border-radius: 0;
-  border: none;
-  display: inline-block;
-  font-size: 1em;
-  font-weight: normal;
-  line-height: 1;
-  text-decoration: none;
-  &:hover {
-    background: none;
-  }
-  &:focus, &:active {
-    outline: none !important;
-  }
-}
-
-.neon-blue {
-  margin: 0;
-  padding: 40px 60px;
-  position: relative;
-  font-family: $font-script;
-  cursor: pointer;
-  font-size: 60px;
-  @include respondto(tablet-portrait) {
-    font-size: 60px;
-    line-height: 50px;
-    padding: 30px 50px;
-  }
-
-  @include respondto(phone) {
-    font-size: 55px;
-    line-height: 55px;
-    padding: 20px 40px;
-  }
-
-  color: $blue-glow;
-  @include neon-text-shadow;
-}
-
-#submit_button {
-  @include span-columns(4);
-  position: relative;
-  text-align: center;
-  // bottom: 480px;
-  @include respondto(tablet-portrait) {
-    bottom: 380px;
-    @include span-columns(12);
-  }
-
-  @include respondto(phone) {
-    bottom: 280px;
-    @include span-columns(12);
   }
 }
 
@@ -285,40 +121,170 @@ table {
 
   #display, #cover {
     margin: 0 auto;
-    height: 520px;
-    width: 527px;
+    height: 501px;
+    width: 511px;
     background-color: transparent;
     border-radius: 10px;
-    @include respondto(phone) {
-      width: 296px;
-      height: 296px;
-    }
-
     @include respondto(tablet-portrait) {
-      height: 388px;
-      width: 388px;
+      height: 372px;
+      width: 372px;
     }
-
+    @include respondto(phone) {
+      width: 282px;
+      height: 282px;
+    }
     text-align: center;
     table {
-      @include box-shadow(inset $glow-4 #192b16);
+      @include box-shadow(inset 0 0 38px $green-inset-shadow);
     }
   }
   #cover {
     position: relative;
-    bottom: 528px;
+    bottom: 502px;
     border: 5px solid $green-light;
     border-radius: 10px;
     pointer-events: none;
     @include green-glow;
-    @include respondto(phone) {
-      border: 3px solid $green-light;
-      bottom: 302px;
-    }
-
     @include respondto(tablet-portrait) {
       border: 4px solid $green-light;
-      bottom: 397px;
+      bottom: 374px;
     }
+
+    @include respondto(phone) {
+      border: 2.7px solid $green-light;
+      bottom: 284.5px;
+    }
+  }
+}
+
+$sq-dim: 55px;
+$sq-dim-sm: 30px;
+$sq-dim-md: 40px;
+
+#board table {
+  table-layout: auto;
+  tr {
+    td {
+      border-right: 2px black groove;
+      border-bottom: 2px black groove;
+      @include box-shadow(2px 0 2px -1px $grey-indent, 0 2px 2px -1px $grey-indent);
+      @include transition(height 0.25s ease, width 0.25s ease);
+      &:nth-child(3n+3) {
+        width: $sq-dim + 2px;
+        height: $sq-dim;
+        border-right: 2px $green-inset-shadow inset;
+        @include respondto(tablet-portrait) {
+          height: $sq-dim-md;
+          width: $sq-dim-md + 2px;
+        }
+
+        @include respondto(phone) {
+          height: $sq-dim-sm;
+          width: $sq-dim-sm + 2px;
+        }
+      }
+      &:last-child {
+        @include box-shadow(0 3px 3px -2px $green-inset-shadow, 2px 0 2px -1px $grey-indent, 0 2px 2px -1px $grey-indent);
+        width: $sq-dim;
+        height: $sq-dim;
+        @include respondto(tablet-portrait) {
+          height: $sq-dim-md;
+          width: $sq-dim-md;
+        }
+
+        @include respondto(phone) {
+          height: $sq-dim-sm;
+          width: $sq-dim-sm;
+        }
+      }
+    }
+    &:nth-child(3n+3) {
+      > td {
+        border-bottom: 2px $green-inset-shadow inset;
+        @include box-shadow(0 3px 3px -2px $green-inset-shadow, 2px 0 2px -1px $grey-indent, 0 2px 2px -1px $grey-indent);
+        height: $sq-dim + 2px;
+        width: $sq-dim;
+        @include respondto(phone) {
+          width: $sq-dim-sm;
+          height: $sq-dim-sm + 2px;
+        }
+
+        @include respondto(tablet-portrait) {
+          width: $sq-dim-md;
+          height: $sq-dim-md + 2px;
+        }
+      }
+    }
+    &:last-child {
+      > td {
+        height: $sq-dim;
+        width: $sq-dim;
+        @include box-shadow(2px 0 2px -1px $grey-indent, 0 2px 2px -1px $grey-indent);
+        @include respondto(tablet-portrait) {
+          height: $sq-dim-md;
+          width: $sq-dim-md;
+        }
+
+        @include respondto(phone) {
+          height: $sq-dim-sm;
+          width: $sq-dim-sm;
+        }
+      }
+    }
+  }
+}
+
+#submit {
+  @include span-columns(4);
+  position: relative;
+  text-align: center;
+  @include respondto(tablet-portrait) {
+    bottom: 380px;
+    @include span-columns(12);
+  }
+
+  @include respondto(phone) {
+    bottom: 280px;
+    @include span-columns(12);
+  }
+}
+
+$blue: blue;
+$small: small;
+
+// override bourbon & user-agent
+.button, button {
+  @include appearance(none);
+  background: none;
+  vertical-align: bottom;
+  border-radius: 0;
+  border: none;
+  display: inline-block;
+  font-weight: normal;
+  line-height: 1;
+  font-family: $font-script;
+  text-decoration: none;
+  padding: 40px 60px;
+  margin: 0;
+  cursor: pointer;
+  font-size: 60px;
+  position: relative;
+  @include neon-text($blue, $small);
+  &:hover {
+    background: none;
+  }
+  &:focus, &:active {
+    outline: none !important;
+  }
+  @include respondto(tablet-portrait) {
+    font-size: 60px;
+    line-height: 50px;
+    padding: 30px 50px;
+  }
+
+  @include respondto(phone) {
+    font-size: 55px;
+    line-height: 55px;
+    padding: 20px 40px;
   }
 }

@@ -1,8 +1,8 @@
 - if @string
   #solution_string{:style => "display:none"}= @solution_string
 %header
-  %h1#neon-heading
-    <span class="pulse second">S</span><span class="pulse2">u</span><span>d</span><span>o</span><span>k</span><span>u</span> <span>S</span><span>o</span><span>l</span><span class="flicker">v</span><span>e</span><span>r</span>
+  %h1
+    <span>S</span><span>u</span><span>d</span><span>o</span><span>k</span><span>u</span> <span>S</span><span>o</span><span>l</span><span>v</span><span>e</span><span>r</span>
 %main
   %section
     #board
@@ -14,6 +14,6 @@
                 %td.table_cell{:id => "#{i}"}
                   %input{:type => "text", :maxlength => "1", :size => "1"}
       #cover
-    #submit_button
-      %button{:onclick => "go();", :type => "button", :class=>"neon-blue"} Submit!
-      %a{:href => "/", :class => "button neon-blue"} Clear
+    #submit
+      %button{:onclick => "go();", :type => "button"} Submit!
+      %a{:href => "/", :class => "button"} Clear
