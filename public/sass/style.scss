@@ -12,7 +12,7 @@ body {
   background: url(img/twinkle_twinkle_@2X.png);
 }
 
-.container { 
+.container {
   @include outer-container;
   margin-top: 60px;
 }
@@ -32,8 +32,10 @@ header {
 
 $pink: pink;
 $large: large;
+$small: small;
 
 input[type="text"] {
+  @include appearance(none);
   height: 55px;
   width: 55px;
   font-size: 2em;
@@ -45,7 +47,8 @@ input[type="text"] {
   font-family: $font-numbers;
   @include transition(height 0.1s ease, width 0.1s ease);
   @include box-shadow(none);
-  @include neon-text($pink, $large);
+  color: map-get($colors, pink-light);
+  @include text-shadow(0 0 6px map-get($colors, pink-pastel));
   &:focus {
     outline: none;
   }
@@ -58,7 +61,7 @@ input[type="text"] {
   @include respondto(phone) {
     height: 30px;
     width: 30px;
-    font-size: 1.4em;
+    font-size: 1.1em;
   }
 }
 
@@ -67,6 +70,9 @@ td {
   padding: 0;
   height: 55px;
   width: 55px;
+  font-family: $font-numbers;
+  color: map-get($colors, pink-light);
+  // @include neon-text($pink, $small);
   @include respondto(phone) {
     height: 30px;
     width: 30px;
@@ -108,7 +114,7 @@ h1 {
   text-align: center;
   position: relative;
   margin: 0 auto;
-  z-index: 0;
+  // z-index: 0;
   overflow: visible;
   @include span-columns(8);
   @include respondto(phone) {
@@ -129,10 +135,12 @@ h1 {
       height: 372px;
       width: 372px;
     }
+
     @include respondto(phone) {
       width: 282px;
       height: 282px;
     }
+
     text-align: center;
     table {
       @include box-shadow(inset 0 0 38px $green-inset-shadow);
