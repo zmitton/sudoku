@@ -8,8 +8,14 @@
 @import "partials/mixins";
 @import "partials/animations";
 
+$pink: pink;
+$blue: blue;
+$large: large;
+$small: small;
+
 body {
   background: url(img/twinkle_twinkle_@2X.png);
+  overflow-x: hidden;
 }
 
 .container {
@@ -30,58 +36,14 @@ header {
   text-align: center;
 }
 
-$pink: pink;
-$large: large;
-$small: small;
-
-input[type="text"] {
-  @include appearance(none);
-  height: 55px;
-  width: 55px;
-  font-size: 2em;
-  margin-bottom: 0;
-  border: none;
-  border-radius: 0;
-  background: transparent;
-  text-align: center;
-  font-family: $font-numbers;
-  @include transition(height 0.1s ease, width 0.1s ease);
-  @include box-shadow(none);
-  color: map-get($colors, pink-light);
-  @include text-shadow(0 0 6px map-get($colors, pink-pastel));
-  &:focus {
-    outline: none;
-  }
-  @include respondto(tablet-portrait) {
-    height: 40px;
-    width: 40px;
-    font-size: 1.6em;
-  }
-
-  @include respondto(phone) {
-    height: 30px;
-    width: 30px;
-    font-size: 1.1em;
-  }
-}
-
-td {
-  border: 0;
-  padding: 0;
-  height: 55px;
-  width: 55px;
-  font-family: $font-numbers;
-  color: map-get($colors, pink-light);
-  @include respondto(phone) {
-    height: 30px;
-    width: 30px;
-  }
-
-  @include respondto(tablet-portrait) {
-    height: 40px;
-    width: 40px;
-  }
-}
+/*
+*
+*
+*
+*/
+/*=========================================
+=            Heading Neon Text            =
+=========================================*/
 
 h1 {
   font: normal 170px / 85px $font-headings;
@@ -109,6 +71,16 @@ h1 {
   }
 }
 
+/*-----  End of Heading Neon Text  ------*/
+/*
+*
+*
+*
+*/
+/*======================================================
+=            Outer Board & Neon Green Cover            =
+======================================================*/
+
 #board {
   text-align: center;
   position: relative;
@@ -125,18 +97,18 @@ h1 {
 
   #display, #cover {
     margin: 0 auto;
-    height: 501px;
+    height: 511px;
     width: 511px;
     background-color: transparent;
     border-radius: 10px;
     @include respondto(tablet-portrait) {
-      height: 372px;
-      width: 372px;
+      height: 385px;
+      width: 385px;
     }
 
     @include respondto(phone) {
-      width: 282px;
-      height: 282px;
+      width: 283px;
+      height: 285px;
     }
 
     text-align: center;
@@ -145,54 +117,134 @@ h1 {
     }
   }
   #cover {
-    position: relative;
-    bottom: 502px;
+    position: absolute;
+    bottom: 4px;
+    left: 103px;
     border: 5px solid $green-light;
     border-radius: 10px;
     pointer-events: none;
     @include green-glow;
     @include respondto(tablet-portrait) {
       border: 4px solid $green-light;
-      bottom: 374px;
+      bottom: 9px;
+      left: 130px;
     }
 
     @include respondto(phone) {
       border: 2.7px solid $green-light;
-      bottom: 284.5px;
+      bottom: 4px;
+      left: 42px;
     }
   }
+}
+
+/*-----  End of Outer Board & Neon Green Cover  ------*/
+/*
+*
+*
+*
+*/
+/*=============================
+=            Cells            =
+=============================*/
+
+input[type="text"], input[type="number"] {
+  @include appearance(none);
+  -moz-appearance: textfield;
+  height: 55px;
+  width: 55px;
+  font-size: 2em;
+  margin-bottom: 0;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  text-align: center;
+  font-family: $font-numbers;
+  @include transition(height 0.1s ease, width 0.1s ease);
+  color: map-get($colors, pink-light);
+  @include text-shadow(0 0 6px map-get($colors, pink-pastel));
+  &:focus {
+    outline: none;
+  }
+  @include respondto(tablet-portrait) {
+    height: 40px;
+    width: 40px;
+    font-size: 1.6em;
+  }
+
+  @include respondto(phone) {
+    height: 30px;
+    width: 30px;
+    font-size: 1.1em;
+  }
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
 }
 
 $sq-dim: 55px;
 $sq-dim-sm: 30px;
 $sq-dim-md: 40px;
 
-#board table {
+.table {
+  display: table;
+  border: none;
   table-layout: auto;
-  tr {
-    td {
-      border-right: 2px black groove;
-      border-bottom: 2px black groove;
-      @include box-shadow(2px 0 2px -1px $grey-indent, 0 2px 2px -1px $grey-indent);
+  .row {
+    display: table-row;
+    .cell {
+      display: table-cell;
+      border: 0;
+      padding: 0;
+      height: 55px;
+      width: 55px;
+      font-family: $font-numbers;
+      color: map-get($colors, pink-light);
+      border-right: 2px $dark-grey inset;
+      border-bottom: 2px $dark-grey inset;
+      // @include box-shadow(inset 0 0 1px 1px $grey-indent, inset 0 0 1px 1px $grey-indent);
       @include transition(height 0.25s ease, width 0.25s ease);
+      @include respondto(tablet-portrait) {
+        height: 40px;
+        width: 40px;
+        border-right: 1px $dark-grey inset;
+        border-bottom: 1px $dark-grey groove;
+      }
+
+      @include respondto(phone) {
+        height: 30px;
+        width: 30px;
+        border-right: 1px $dark-grey groove;
+        border-bottom: 1px $dark-grey groove;
+      }
+
+      // @include box-shadow(2px 0 2px -1px $grey-indent, 0 2px 2px -1px $grey-indent);
       &:nth-child(3n+3) {
         width: $sq-dim + 2px;
         height: $sq-dim;
         border-right: 2px $green-inset-shadow inset;
+        // this is the green border that marks the squares, vertical
         @include respondto(tablet-portrait) {
           height: $sq-dim-md;
           width: $sq-dim-md + 2px;
+          border-right: 1px $green-inset-shadow inset;
+          // this is the green border that marks the squares, vertical
         }
 
         @include respondto(phone) {
           height: $sq-dim-sm;
           width: $sq-dim-sm + 2px;
+          border-right: 1px $green-inset-shadow inset;
+          // this is the green border that marks the squares, vertical
         }
       }
       &:last-child {
-        @include box-shadow(0 3px 3px -2px $green-inset-shadow, 2px 0 2px -1px $grey-indent, 0 2px 2px -1px $grey-indent);
+        // @include box-shadow(0 3px 3px -2px $green-inset-shadow, 2px 0 2px -1px $grey-indent, 0 2px 2px -1px $grey-indent);
         width: $sq-dim;
         height: $sq-dim;
+        border-right: 0;
         @include respondto(tablet-portrait) {
           height: $sq-dim-md;
           width: $sq-dim-md;
@@ -205,27 +257,29 @@ $sq-dim-md: 40px;
       }
     }
     &:nth-child(3n+3) {
-      > td {
+      > .cell {
         border-bottom: 2px $green-inset-shadow inset;
-        @include box-shadow(0 3px 3px -2px $green-inset-shadow, 2px 0 2px -1px $grey-indent, 0 2px 2px -1px $grey-indent);
+        // @include box-shadow(0 3px 3px -2px $green-inset-shadow, 2px 0 2px -1px $grey-indent, 0 2px 2px -1px $grey-indent);
         height: $sq-dim + 2px;
         width: $sq-dim;
         @include respondto(phone) {
+          border-bottom: 1px $green-inset-shadow inset;
           width: $sq-dim-sm;
           height: $sq-dim-sm + 2px;
         }
 
         @include respondto(tablet-portrait) {
+          border-bottom: 1px $green-inset-shadow inset;
           width: $sq-dim-md;
           height: $sq-dim-md + 2px;
         }
       }
     }
     &:last-child {
-      > td {
+      > .cell {
         height: $sq-dim;
         width: $sq-dim;
-        @include box-shadow(2px 0 2px -1px $grey-indent, 0 2px 2px -1px $grey-indent);
+        // @include box-shadow(2px 0 2px -1px $grey-indent, 0 2px 2px -1px $grey-indent);
         @include respondto(tablet-portrait) {
           height: $sq-dim-md;
           width: $sq-dim-md;
@@ -240,27 +294,32 @@ $sq-dim-md: 40px;
   }
 }
 
+/*-----  End of Cells  ------*/
+/*
+*
+*
+*
+*/
+/*===============================
+=            Buttons            =
+===============================*/
+
 #submit {
   @include span-columns(4);
-  position: relative;
   text-align: center;
-  @include respondto(tablet-portrait) {
-    bottom: 380px;
+  @include respondto(tablet-portrait, phone) {
+    // bottom: 380px;
+    // @include row;
     @include span-columns(12);
-  }
-
-  @include respondto(phone) {
-    bottom: 280px;
-    @include span-columns(12);
+    margin-top: 25px;
   }
 }
 
-$blue: blue;
-$small: small;
-
 // override bourbon & user-agent
 .button, button {
+  @include span-columns(6);
   @include appearance(none);
+  overflow: visible;
   background: none;
   vertical-align: bottom;
   border-radius: 0;
@@ -270,11 +329,10 @@ $small: small;
   line-height: 1;
   font-family: $font-script;
   text-decoration: none;
-  padding: 40px 60px;
+  -webkit-background-origin: content-box;
   margin: 0;
   cursor: pointer;
   font-size: 60px;
-  position: relative;
   @include neon-text($blue, $small);
   &:hover {
     background: none;
@@ -289,18 +347,36 @@ $small: small;
   }
 
   @include respondto(phone) {
-    font-size: 55px;
+    font-size: 35px;
     line-height: 55px;
-    padding: 20px 40px;
+    padding: 20px 10px;
   }
 }
 
-footer {
+button {
+  min-width: 240px;
+  min-height: 75px;
+  @include respondto(phone) {
+    min-width: 140px;
+  }
+}
+
+/*-----  End of Buttons  ------*/
+/*
+*
+*
+*
+*/
+/*==============================
+=            Footer            =
+==============================*/
+
+.info {
   @include row;
   text-align: center;
-  position: relative;
+  // position: relative;
   margin-top: 20px;
-  bottom: 250px;
+  // bottom: 250px;
   padding: 30px;
 }
 
@@ -309,11 +385,13 @@ footer {
   font-family: $font-numbers;
   font-size: 40px;
   span {
-    @include neon-text($pink, $large);
+    color: map-get($colors, pink-pastel);
+    @include text-shadow(0 0 6px map-get($colors, pink-pastel));
     white-space: nowrap;
   }
   a {
-    @include neon-text($pink, $large);
+    color: map-get($colors, pink-pastel);
+    @include text-shadow(0 0 6px map-get($colors, pink-pastel));
     font-family: $font-script;
     text-decoration: none;
   }
@@ -321,4 +399,18 @@ footer {
 
 .links {
   margin-top: 15px;
+}
+
+/*-----  End of Footer  ------*/
+/*
+*
+*
+*
+*/
+
+.no-jump {
+  width: 1px;
+  height: 1px;
+  @include transform(translate3d(0, 0, 0));
+  float: right;
 }
