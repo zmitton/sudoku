@@ -372,6 +372,10 @@ button {
   @include respondto(phone) {
     min-width: 140px;
   }
+
+  @include respondto(desktop, large-desktop) {
+    margin-bottom: 20px;
+  }
 }
 
 /*-----  End of Buttons  ------*/
