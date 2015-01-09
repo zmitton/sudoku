@@ -3,7 +3,7 @@ window.onload = function() {
   if (document.getElementById("solution_string")) {
     fill_board_with_solution();
   }
-  $(".table_cell").each(function() {
+  $(".cell").each(function() {
     $input_field = $(this).children()[0];
     $input_field.onfocus = function() {
       this.select();
