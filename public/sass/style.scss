@@ -15,7 +15,7 @@ $small: small;
 
 body {
   background: url(img/twinkle_twinkle_@2X.png);
-  overflow-x: hidden;
+  // overflow-x: hidden;
 }
 
 .container {
@@ -28,6 +28,7 @@ main {
 }
 
 section {
+  position: relative;
   @include row;
 }
 
@@ -81,62 +82,76 @@ h1 {
 =            Outer Board & Neon Green Cover            =
 ======================================================*/
 
+@mixin scale-neon-cover($height: 511px, $width: 511px, $border-width: 5px, $bottom: 4px) {
+  #display, #cover {
+    height: $height;
+    width: $width;
+  }
+  #cover {
+    border-width: $border-width !important;
+    bottom: $bottom;
+  }
+}
+
 #board {
   text-align: center;
-  position: relative;
   margin: 0 auto;
-  overflow: visible;
+  position: relative;
   @include span-columns(8);
-  @include respondto(phone) {
-    @include span-columns(12);
-  }
-
-  @include respondto(tablet-portrait) {
+  @include respondto(phone, tablet-portrait, tablet-landscape, small-desktop) {
     @include span-columns(12);
   }
 
   #display, #cover {
     margin: 0 auto;
-    height: 511px;
-    width: 511px;
     background-color: transparent;
     border-radius: 10px;
-    @include respondto(tablet-portrait) {
-      height: 385px;
-      width: 385px;
-    }
-
-    @include respondto(phone) {
-      width: 283px;
-      height: 285px;
-    }
-
     text-align: center;
     table {
       @include box-shadow(inset 0 0 38px $green-inset-shadow);
     }
   }
   #cover {
+    margin: 0 auto;
+    left: 0;
+    right: 0;
     position: absolute;
-    bottom: 4px;
-    left: 103px;
     border: 5px solid $green-light;
     border-radius: 10px;
     pointer-events: none;
     @include green-glow;
-    @include respondto(tablet-portrait) {
-      border: 4px solid $green-light;
-      bottom: 9px;
-      left: 130px;
-    }
-
-    @include respondto(phone) {
-      border: 2.7px solid $green-light;
-      bottom: 4px;
-      left: 42px;
-    }
   }
 }
+
+// default
+@include scale-neon-cover;
+
+/*
+*/
+//media queries
+// 1025-1440
+@include respondto(desktop) {
+  @include scale-neon-cover($height: 511px, $width: 511px, $border-width: 5px, $bottom: 4px);
+}
+
+
+// 769-1024
+@include respondto(tablet-landscape) {
+  @include scale-neon-cover($height: 511px, $width: 511px, $border-width: 5px, $bottom: 4px);
+}
+
+
+// 481-768
+@include respondto(tablet-portrait) {
+  @include scale-neon-cover($height: 385px, $width: 385px, $border-width: 4px, $bottom: 9px);
+}
+
+
+// <480
+@include respondto(phone) {
+  @include scale-neon-cover($height: 283px, $width: 285px, $border-width: 2.7px, $bottom: 4px);
+}
+
 
 /*-----  End of Outer Board & Neon Green Cover  ------*/
 /*
@@ -210,17 +225,16 @@ $sq-dim-md: 40px;
         height: 40px;
         width: 40px;
         border-right: 1px $dark-grey inset;
-        border-bottom: 1px $dark-grey groove;
+        border-bottom: 1px $dark-grey inset;
       }
 
       @include respondto(phone) {
         height: 30px;
         width: 30px;
-        border-right: 1px $dark-grey groove;
-        border-bottom: 1px $dark-grey groove;
+        border-right: 1px $dark-grey inset;
+        border-bottom: 1px $dark-grey inset;
       }
 
-      // @include box-shadow(2px 0 2px -1px $grey-indent, 0 2px 2px -1px $grey-indent);
       &:nth-child(3n+3) {
         width: $sq-dim + 2px;
         height: $sq-dim;
@@ -241,7 +255,6 @@ $sq-dim-md: 40px;
         }
       }
       &:last-child {
-        // @include box-shadow(0 3px 3px -2px $green-inset-shadow, 2px 0 2px -1px $grey-indent, 0 2px 2px -1px $grey-indent);
         width: $sq-dim;
         height: $sq-dim;
         border-right: 0;
@@ -307,7 +320,7 @@ $sq-dim-md: 40px;
 #submit {
   @include span-columns(4);
   text-align: center;
-  @include respondto(tablet-portrait, phone) {
+  @include respondto(tablet-landscape, tablet-portrait, phone) {
     // bottom: 380px;
     // @include row;
     @include span-columns(12);
@@ -317,7 +330,7 @@ $sq-dim-md: 40px;
 
 // override bourbon & user-agent
 .button, button {
-  @include span-columns(6);
+  // @include span-columns(6);
   @include appearance(none);
   overflow: visible;
   background: none;
@@ -359,6 +372,10 @@ button {
   @include respondto(phone) {
     min-width: 140px;
   }
+
+  @include respondto(desktop, large-desktop) {
+    margin-bottom: 20px;
+  }
 }
 
 /*-----  End of Buttons  ------*/
@@ -374,9 +391,7 @@ button {
 .info {
   @include row;
   text-align: center;
-  // position: relative;
   margin-top: 20px;
-  // bottom: 250px;
   padding: 30px;
 }
 
@@ -384,6 +399,10 @@ button {
   @include neon-text($blue, $small);
   font-family: $font-numbers;
   font-size: 40px;
+  @include respondto(phone, tablet-portrait) {
+    font-size: 30px;
+  }
+
   span {
     color: map-get($colors, pink-pastel);
     @include text-shadow(0 0 6px map-get($colors, pink-pastel));
